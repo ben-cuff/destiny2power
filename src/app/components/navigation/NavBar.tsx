@@ -12,18 +12,18 @@ const Navbar = () => {
                 </Link>
           <ul className="hidden md:flex gap-x-6 text-white left-justified">
             <li>
-              <Link href="/">
-                <p>About</p>
+              <Link href="/bounties">
+                <p>Bounties</p>
+              </Link>
+            </li>
+            <li>
+              <Link href="/optimizer">
+                <p>Optimizer</p>
               </Link>
             </li>
             <li>
               <Link href="/">
                 <p>Settings</p>
-              </Link>
-            </li>
-            <li>
-              <Link href="/">
-                <p>Contacts</p>
               </Link>
             </li>
           </ul>
