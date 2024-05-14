@@ -22,7 +22,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link href="/">
+              <Link href="/settings">
                 <p>Settings</p>
               </Link>
             </li>
