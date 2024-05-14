@@ -1,0 +1,27 @@
+.mainBody {
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #2e3347;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.titleText {
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.listElements {
+  display: flex;
+  list-style: none;
+  margin-left: auto;
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 5px;
+  margin-left: 50px;
+  gap: 40px;
+}
+
+.listElements li:hover {
+  color: rgba(187, 88, 88, 0.644);
+  cursor: pointer;
+}
