@@ -24,3 +24,7 @@ NEXTAUTH_URL=https://localhost:3000
 # This can be generated using the command "openssl rand -base64 32"
 NEXTAUTH_SECRET=""
 ```
+
+# License
+
+[MIT](https://choosealicense.com/licenses/mit/)
