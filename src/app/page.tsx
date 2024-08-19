@@ -1,5 +1,7 @@
 "use client";
 
+import Bungie from "next-auth/providers/bungie";
+
 import { signIn, signOut, useSession, SessionProvider } from "next-auth/react";
 
 const Home = () => {
