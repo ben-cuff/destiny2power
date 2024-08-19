@@ -2,7 +2,7 @@
 ## HTTPS
 Due to the bungie API requiring HTTPS in order to authenticate you must run your dev server with
 
--- next dev --experimental-https
+next dev --experimental-https
 
 ## Environment Variables
 You also need to create your own .env.local in the root directory 

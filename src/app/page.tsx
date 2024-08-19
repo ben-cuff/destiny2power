@@ -1,9 +1,7 @@
 "use client";
 
-// Import necessary modules
 import { signIn, signOut, useSession, SessionProvider } from "next-auth/react";
 
-// Home component
 const Home = () => {
   const { data: sessionData } = useSession();
 
@@ -39,7 +37,6 @@ const Home = () => {
   );
 };
 
-// HomePage component
 export default function HomePage() {
   return (
     <>
