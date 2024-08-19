@@ -13,7 +13,7 @@ const Home = () => {
       <main className="flex flex-col items-center justify-center min-h-screen bg-gray-800">
         {sessionData && (
           <div className="flex flex-col items-center">
-            {sessionData.user && sessionData.user.image && (
+            {sessionData?.user?.image && (
               <img
                 src={sessionData.user.image}
                 width={320}
