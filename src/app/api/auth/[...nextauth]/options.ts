@@ -1,6 +1,5 @@
 import type { NextAuthOptions } from "next-auth";
 import BungieProvider from "next-auth/providers/bungie";
-import GitHubProvider from "next-auth/providers/github";
 
 export const options: NextAuthOptions = {
   providers: [
@@ -24,10 +23,5 @@ export const options: NextAuthOptions = {
           ).then(async response => await response.json())
         }
       }
-    }),
-    GitHubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    }),
-  ],
-};
+    })
+}
