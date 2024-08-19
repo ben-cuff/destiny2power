@@ -7,8 +7,10 @@ export const options: NextAuthOptions = {
     BungieProvider({
       clientId: process.env.BUNGIE_CLIENT_ID,
       clientSecret: process.env.BUNGIE_CLIENT_SECRET,
+      // The Bungie API doesn't like scope being set
       authorization: { params: { scope: '' } },
       httpOptions: { headers: { 'X-API-Key': process.env.BUNGIE_API_KEY } },
+      // Correctly gets the current user info so that the existing `profile` definition works
       userinfo: {
         async request({ tokens, provider }) {
           return await fetch(
@@ -19,7 +21,7 @@ export const options: NextAuthOptions = {
                 authorization: `Bearer ${tokens.access_token}`
               }
             }
-          ).then(async response => await response.json());
+          ).then(async response => await response.json())
         }
       }
     }),
