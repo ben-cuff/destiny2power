@@ -23,5 +23,5 @@ export const options: NextAuthOptions = {
           ).then(async response => await response.json())
         }
       }
-    })
-}
+    })],
+};
