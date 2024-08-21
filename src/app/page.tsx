@@ -3,6 +3,7 @@
 import Bungie from "next-auth/providers/bungie";
 
 import { signIn, signOut, useSession, SessionProvider } from "next-auth/react";
+import Image from "next/image";
 
 const Home = () => {
   const { data: sessionData } = useSession();
@@ -13,7 +14,7 @@ const Home = () => {
         {sessionData && (
           <div className="flex flex-col items-center">
             {sessionData?.user?.image && (
-              <img
+              <Image
                 src={sessionData.user.image}
                 width={320}
                 height={320}
