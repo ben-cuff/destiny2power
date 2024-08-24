@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import NavBar from "@/components/navigation/navbar";
+import ClientProvider from "@/components/clientprovider";
 
 export const metadata: Metadata = {
 	title: "Destiny 2 Power",
@@ -14,10 +16,13 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
-				<div>
-					<h1>Destiny 2 power</h1>
-				</div>
-				{children}
+				<ClientProvider>
+					<div>
+						<h1>Destiny 2 Power</h1>
+						<NavBar />
+					</div>
+					{children}
+				</ClientProvider>
 			</body>
 		</html>
 	);
