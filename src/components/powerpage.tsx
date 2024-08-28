@@ -1,10 +1,6 @@
 "use client";
 
-interface PowerPageProps {
-	lightLevel: number;
-	lightLevelBonus: number;
-	highestLightItems: { name: string; lightLevel: number }[];
-}
+import { PowerPageProps } from "@/types/powerPageProps";
 
 export default function PowerPage({
 	lightLevel,
@@ -32,11 +28,11 @@ export default function PowerPage({
 			<ul>
 				{highestLightItems.map(
 					(
-						item: { name: string; lightLevel: number },
+						item: { itemId: string; lightLevel: number },
 						index: number
 					) => (
 						<li key={index}>
-							{item.name}: {item.lightLevel}
+							{item.itemId}: {item.lightLevel}
 						</li>
 					)
 				)}

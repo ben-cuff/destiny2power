@@ -1,17 +1,13 @@
-export interface PowerPageProps {
-	lightLevel: number;
-	lightLevelBonus: number;
-	highestLightItems: { name: string; lightLevel: number }[];
-}
+import { PowerPageProps } from "@/types/powerPageProps";
+import { ItemBucketHashes } from "@/types/itemBucketHashes";
+import { getLightLevel } from "./getLightLevel";
+import { get } from "http";
 
 export async function fetchPowerData(
 	accessToken: string,
 	membershipType: number,
 	membershipId: string
 ): Promise<PowerPageProps> {
-	console.log(accessToken, membershipType, membershipId);
-	console.log(process.env.NEXT_PUBLIC_BUNGIE_API_KEY);
-
 	const components = [102, 201, 205];
 	const fetchPromises = components.map((component) =>
 		fetch(
@@ -33,28 +29,52 @@ export async function fetchPowerData(
 	);
 
 	const [data102, data201, data205] = await Promise.all(fetchPromises);
-	//console.log(JSON.stringify(data102, null, 2));
-	//console.log(JSON.stringify(data201, null, 2));
-	//console.log(JSON.stringify(data205, null, 2));
 
-	const combinedData = {
-		...data102.Response,
-		...data201.Response,
-		...data205.Response,
-	};
+	const items102 = data102.Response.profileInventory.data.items || [];
+
+	const items201 = Object.values(
+		data201.Response.characterInventories.data
+	).flatMap((character: any) => character.items || []);
+
+	const items205 = Object.values(
+		data205.Response.characterEquipment.data
+	).flatMap((character: any) => character.items || []);
+
+	const combinedData = [...items102, ...items201, ...items205].filter(
+		(item) => item.itemInstanceId
+	);
 
 	console.log(JSON.stringify(combinedData, null, 2));
 
+	// const filteredData = combinedData.reduce((acc, item) => {
+	// 	if (item.bucketHash == ItemBucketHashes[1]) {
+	// 		acc.push(item);
+	// 	}
+	// 	return acc;
+	// }, []);
+
+	//console.log(JSON.stringify(filteredData, null, 2));
+	const startTime = Date.now();
+
+	for (const item of combinedData) {
+		await new Promise((resolve) => setTimeout(resolve, 1));
+		getLightLevel(membershipType, membershipId, item.itemInstanceId);
+	}
+
+	const endTime = Date.now();
+	const executionTime = endTime - startTime;
+	console.log(`Execution time: ${executionTime}ms`);
+
 	const lightLevelBonus = 20;
 	const highestLightItems = [
-		{ name: "Item 1", lightLevel: 1000 },
-		{ name: "Item 2", lightLevel: 1000 },
-		{ name: "Item 3", lightLevel: 1000 },
-		{ name: "Item 4", lightLevel: 1001 },
-		{ name: "Item 5", lightLevel: 1000 },
-		{ name: "Item 6", lightLevel: 1000 },
-		{ name: "Item 7", lightLevel: 1000 },
-		{ name: "Item 8", lightLevel: 1000 },
+		{ itemId: "1", lightLevel: 1000, itemImage: "" },
+		{ itemId: "2", lightLevel: 1000, itemImage: "" },
+		{ itemId: "3", lightLevel: 1000, itemImage: "" },
+		{ itemId: "4", lightLevel: 1001, itemImage: "" },
+		{ itemId: "5", lightLevel: 1000, itemImage: "" },
+		{ itemId: "6", lightLevel: 1000, itemImage: "" },
+		{ itemId: "7", lightLevel: 1000, itemImage: "" },
+		{ itemId: "8", lightLevel: 1000, itemImage: "" },
 	];
 	const lightLevel =
 		highestLightItems.reduce((total, item) => total + item.lightLevel, 0) /
