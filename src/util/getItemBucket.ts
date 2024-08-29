@@ -4,7 +4,7 @@ export async function getItemBucket(itemHash: number): Promise<string> {
 			`https://www.bungie.net/Platform/Destiny2/Manifest/DestinyInventoryItemDefinition/${itemHash}/`,
 			{
 				headers: {
-					"X-API-Key": process.env.NEXT_PUBLIC_BUNGIE_API_KEY,
+					"X-API-Key": process.env.PUBLIC_BUNGIE_API_KEY,
 				},
 			}
 		);

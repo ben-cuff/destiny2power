@@ -8,7 +8,7 @@ export async function getLightLevel(
 			`https://www.bungie.net/Platform/Destiny2/${membershipType}/Profile/${membershipId}/Item/${itemInstanceId}/?components=300`,
 			{
 				headers: {
-					"X-API-Key": process.env.NEXT_PUBLIC_BUNGIE_API_KEY,
+					"X-API-Key": process.env.PUBLIC_BUNGIE_API_KEY,
 				},
 			}
 		);
