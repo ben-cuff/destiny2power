@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+// constructs links to navigate around the website
 export default function Nav() {
 	return (
 		<div>

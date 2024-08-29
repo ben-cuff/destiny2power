@@ -1,3 +1,5 @@
+// the bucket hashes that correspond to a item slot
+
 export const ItemBucketHashes = [
 	{ hash: "1498876634", name: "kinetic" },
 	{ hash: "2465295065", name: "energy" },

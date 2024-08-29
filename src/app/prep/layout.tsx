@@ -10,8 +10,9 @@ export default async function PrepLayout({
 }) {
 	const session = await getServerSession(authOptions);
 
+	// redirects the user if they are not authenticated
 	if (!session) {
-		redirect("/");
+		redirect("/?message=signin");
 	}
 
 	return <div>{children}</div>;

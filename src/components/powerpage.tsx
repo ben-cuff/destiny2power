@@ -1,23 +1,26 @@
 import { PowerPageProps } from "@/types/powerPageProps";
 import Image from "next/image";
 
+// this constructs the power page
 export default function PowerPage({
 	lightLevel,
 	lightLevelBonus,
 	highestLightItems = [],
 }: PowerPageProps) {
 	const wholeNumber = Math.floor(lightLevel);
-	const decimalPart = lightLevel - wholeNumber;
-	const fraction = Math.round(decimalPart * 8);
+	const fraction = Math.round((lightLevel - wholeNumber) * 8);
 
-	const lightLevelString =
-		fraction === 0 ? `${wholeNumber}` : `${wholeNumber} ${fraction}/8`;
+	// function that formats the light level string
+	const formatLightLevel = (level: number, fraction: number) => {
+		return fraction === 0 ? `${level}` : `${level} ${fraction}/8`;
+	};
 
-	const lightLevelWithBonus = wholeNumber + lightLevelBonus;
-	const lightLevelStringWithBonus =
-		fraction === 0
-			? `${lightLevelWithBonus}`
-			: `${lightLevelWithBonus} ${fraction}/8`;
+	const lightLevelString = formatLightLevel(wholeNumber, fraction);
+
+	const lightLevelStringWithBonus = formatLightLevel(
+		wholeNumber + lightLevelBonus,
+		fraction
+	);
 
 	return (
 		<div>
