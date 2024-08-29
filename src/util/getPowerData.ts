@@ -41,7 +41,7 @@ export async function fetchPowerData(
 		data205.Response.characterEquipment.data
 	).flatMap((character: any) => character.items || []);
 
-	const combinedData = [...items102, ...items201, ...items205].filter(
+	const combinedData = [...items205, ...items201, ...items102].filter(
 		(item) => item.itemInstanceId
 	);
 
