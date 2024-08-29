@@ -6,7 +6,7 @@ export async function getItemNameImage(
 			`https://www.bungie.net/Platform/Destiny2/Manifest/DestinyInventoryItemDefinition/${itemHash}/`,
 			{
 				headers: {
-					"X-API-Key": process.env.PUBLIC_BUNGIE_API_KEY,
+					"X-API-Key": process.env.BUNGIE_API_KEY,
 				},
 			}
 		);
@@ -22,8 +22,6 @@ export async function getItemNameImage(
 		const itemName = data.Response.displayProperties.name || "";
 		const itemIcon = data.Response.displayProperties.icon || "";
 
-		console.log("Item Name:", itemName);
-		console.log("Item Icon:", itemIcon);
 		return { name: itemName, icon: itemIcon };
 	} catch (error) {
 		console.error("Failed to fetch weapon type hash:", error);

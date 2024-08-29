@@ -16,7 +16,7 @@ export async function fetchPowerData(
 			{
 				headers: {
 					Authorization: `Bearer ${accessToken}`,
-					"X-API-Key": process.env.PUBLIC_BUNGIE_API_KEY,
+					"X-API-Key": process.env.BUNGIE_API_KEY,
 				},
 			}
 		).then((response) => {
