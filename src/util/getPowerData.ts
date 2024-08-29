@@ -29,43 +29,37 @@ export async function fetchPowerData(
 
 	let maxCount = 0;
 
-	for (const item of combinedData) {
-		const itemHash = await getItemBucket(item.itemHash);
+	const itemHashPromises = combinedData.map((item) =>
+		getItemBucket(item.itemHash)
+	);
+	const itemHashes = await Promise.all(itemHashPromises);
+
+	const lightLevelPromises = combinedData.map((item) =>
+		getLightLevel(membershipType, membershipId, item.itemInstanceId)
+	);
+	const lightLevels = await Promise.all(lightLevelPromises);
+
+	for (let i = 0; i < combinedData.length; i++) {
+		const item = combinedData[i];
+		const itemHash = itemHashes[i];
+		const lightLevel = lightLevels[i];
 		let index = -1;
-		for (let i = 0; i < ItemBucketHashes.length; i++) {
-			const bucketItem = ItemBucketHashes[i];
+
+		for (let j = 0; j < ItemBucketHashes.length; j++) {
+			const bucketItem = ItemBucketHashes[j];
 			if (itemHash == bucketItem.hash) {
-				index = i;
+				index = j;
 				break;
 			}
 		}
+
 		if (index == -1 || highestLightItems[index].lightLevel >= 2000) {
 			continue;
-		}
-
-		const lightLevel = await getLightLevel(
-			membershipType,
-			membershipId,
-			item.itemInstanceId
-		);
-
-		if (lightLevel == 2000) {
-			maxCount++;
 		}
 
 		if (lightLevel > highestLightItems[index].lightLevel) {
 			highestLightItems[index].lightLevel = lightLevel;
 			highestLightItems[index].itemId = item.itemHash;
-			console.log(
-				"New Highest Light: ",
-				lightLevel,
-				"Type",
-				ItemBucketHashes[index].name
-			);
-		}
-
-		if (maxCount >= 8) {
-			break;
 		}
 	}
 
