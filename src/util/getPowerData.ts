@@ -72,13 +72,6 @@ export async function fetchPowerData(
 			continue;
 		}
 
-		console.log(
-			"Checking Item: ",
-			item.itemHash,
-			"Type",
-			ItemBucketHashes[index].name
-		);
-
 		const lightLevel = await getLightLevel(
 			membershipType,
 			membershipId,
@@ -113,7 +106,6 @@ export async function fetchPowerData(
 		})
 	);
 
-	console.log(await highestLightItems);
 	const lightLevelBonus = 20;
 
 	const lightLevel =
