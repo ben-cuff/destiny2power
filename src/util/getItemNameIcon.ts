@@ -1,4 +1,4 @@
-export async function getItemNameImage(
+export async function getItemNameIcon(
 	itemHash: string
 ): Promise<{ name: string; icon: string }> {
 	try {
