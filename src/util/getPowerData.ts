@@ -1,6 +1,7 @@
 import { PowerPageProps } from "@/types/powerPageProps";
 import { ItemBucketHashes } from "@/types/itemBucketHashes";
 import { getLightLevel } from "./getLightLevel";
+import { getItemBucket } from "./getItemBucket";
 import { get } from "http";
 
 export async function fetchPowerData(
@@ -44,7 +45,7 @@ export async function fetchPowerData(
 		(item) => item.itemInstanceId
 	);
 
-	console.log(JSON.stringify(combinedData, null, 2));
+	//console.log(JSON.stringify(combinedData, null, 2));
 
 	// const filteredData = combinedData.reduce((acc, item) => {
 	// 	if (item.bucketHash == ItemBucketHashes[1]) {
@@ -54,20 +55,24 @@ export async function fetchPowerData(
 	// }, []);
 
 	//console.log(JSON.stringify(filteredData, null, 2));
-	const startTime = Date.now();
 
 	for (const item of combinedData) {
-		await new Promise((resolve) => setTimeout(resolve, 1));
-		getLightLevel(membershipType, membershipId, item.itemInstanceId);
+		await new Promise((resolve) => setTimeout(resolve, 2));
+		//getLightLevel(membershipType, membershipId, item.itemInstanceId);
+		var index = -1;
+		const itemHash = await getItemBucket(item.itemHash);
+		for (let i = 0; i < ItemBucketHashes.length; i++) {
+			const item = ItemBucketHashes[i];
+			if (itemHash == item.hash) {
+				index = i;
+				break;
+			}
+		}
 	}
-
-	const endTime = Date.now();
-	const executionTime = endTime - startTime;
-	console.log(`Execution time: ${executionTime}ms`);
 
 	const lightLevelBonus = 20;
 	const highestLightItems = [
-		{ itemId: "1", lightLevel: 1000, itemImage: "" },
+		{ itemId: "1", lightLevel: 0, itemImage: "" },
 		{ itemId: "2", lightLevel: 1000, itemImage: "" },
 		{ itemId: "3", lightLevel: 1000, itemImage: "" },
 		{ itemId: "4", lightLevel: 1001, itemImage: "" },
