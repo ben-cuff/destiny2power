@@ -7,9 +7,9 @@ export async function getLightLevel(
 		const response = await fetch(
 			`https://www.bungie.net/Platform/Destiny2/${membershipType}/Profile/${membershipId}/Item/${itemInstanceId}/?components=300`,
 			{
-				headers: {
-					"X-API-Key": process.env.BUNGIE_API_KEY,
-				},
+				headers: new Headers({
+					"X-API-Key": process.env.BUNGIE_API_KEY || "",
+				}),
 			}
 		);
 

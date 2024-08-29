@@ -14,10 +14,10 @@ export async function fetchPowerData(
 		fetch(
 			`https://www.bungie.net/Platform/Destiny2/${membershipType}/Profile/${membershipId}/?components=${component}`,
 			{
-				headers: {
-					Authorization: `Bearer ${accessToken}`,
-					"X-API-Key": process.env.BUNGIE_API_KEY,
-				},
+				headers: new Headers({
+					Authorization: `Bearer ${accessToken}` || "",
+					"X-API-Key": process.env.BUNGIE_API_KEY || "",
+				}),
 			}
 		).then((response) => {
 			if (!response.ok) {

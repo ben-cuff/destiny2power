@@ -3,9 +3,9 @@ export async function getItemBucket(itemHash: number): Promise<string> {
 		const response = await fetch(
 			`https://www.bungie.net/Platform/Destiny2/Manifest/DestinyInventoryItemDefinition/${itemHash}/`,
 			{
-				headers: {
-					"X-API-Key": process.env.BUNGIE_API_KEY,
-				},
+				headers: new Headers({
+					"X-API-Key": process.env.BUNGIE_API_KEY || "",
+				}),
 			}
 		);
 
