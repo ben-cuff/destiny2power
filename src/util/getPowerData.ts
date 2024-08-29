@@ -3,46 +3,17 @@ import { ItemBucketHashes } from "@/types/itemBucketHashes";
 import { getLightLevel } from "./getLightLevel";
 import { getItemBucket } from "./getItemBucket";
 import { getItemNameImage } from "./getItemNameIcon";
+import { getAllItems } from "./getAllItems";
 
 export async function fetchPowerData(
 	accessToken: string,
 	membershipType: number,
 	membershipId: string
 ): Promise<PowerPageProps> {
-	const components = [102, 201, 205];
-	const fetchPromises = components.map((component) =>
-		fetch(
-			`https://www.bungie.net/Platform/Destiny2/${membershipType}/Profile/${membershipId}/?components=${component}`,
-			{
-				headers: new Headers({
-					Authorization: `Bearer ${accessToken}` || "",
-					"X-API-Key": process.env.BUNGIE_API_KEY || "",
-				}),
-			}
-		).then((response) => {
-			if (!response.ok) {
-				throw new Error(
-					`Error fetching component ${component}: ${response.status} ${response.statusText}`
-				);
-			}
-			return response.json();
-		})
-	);
-
-	const [data102, data201, data205] = await Promise.all(fetchPromises);
-
-	const items102 = data102.Response.profileInventory.data.items || [];
-
-	const items201 = Object.values(
-		data201.Response.characterInventories.data
-	).flatMap((character: any) => character.items || []);
-
-	const items205 = Object.values(
-		data205.Response.characterEquipment.data
-	).flatMap((character: any) => character.items || []);
-
-	const combinedData = [...items205, ...items201, ...items102].filter(
-		(item) => item.itemInstanceId
+	const combinedData = await getAllItems(
+		membershipType,
+		membershipId,
+		accessToken
 	);
 
 	let highestLightItems = [
