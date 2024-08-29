@@ -45,42 +45,69 @@ export async function fetchPowerData(
 		(item) => item.itemInstanceId
 	);
 
-	//console.log(JSON.stringify(combinedData, null, 2));
-
-	// const filteredData = combinedData.reduce((acc, item) => {
-	// 	if (item.bucketHash == ItemBucketHashes[1]) {
-	// 		acc.push(item);
-	// 	}
-	// 	return acc;
-	// }, []);
-
-	//console.log(JSON.stringify(filteredData, null, 2));
+	let highestLightItems = [
+		{ itemId: "1", lightLevel: 0, itemImage: "" },
+		{ itemId: "2", lightLevel: 0, itemImage: "" },
+		{ itemId: "3", lightLevel: 0, itemImage: "" },
+		{ itemId: "4", lightLevel: 0, itemImage: "" },
+		{ itemId: "5", lightLevel: 0, itemImage: "" },
+		{ itemId: "6", lightLevel: 0, itemImage: "" },
+		{ itemId: "7", lightLevel: 0, itemImage: "" },
+		{ itemId: "8", lightLevel: 0, itemImage: "" },
+	];
 
 	for (const item of combinedData) {
 		await new Promise((resolve) => setTimeout(resolve, 2));
-		//getLightLevel(membershipType, membershipId, item.itemInstanceId);
-		var index = -1;
 		const itemHash = await getItemBucket(item.itemHash);
+		let index = -1;
 		for (let i = 0; i < ItemBucketHashes.length; i++) {
-			const item = ItemBucketHashes[i];
-			if (itemHash == item.hash) {
+			const bucketItem = ItemBucketHashes[i];
+			if (itemHash == bucketItem.hash) {
 				index = i;
 				break;
 			}
 		}
+		if (index == -1 || highestLightItems[index].lightLevel >= 2000) {
+			continue;
+		}
+
+		console.log(
+			"Checking Item: ",
+			item.itemHash,
+			"Type",
+			ItemBucketHashes[index].name
+		);
+
+		const lightLevel = await getLightLevel(
+			membershipType,
+			membershipId,
+			item.itemInstanceId
+		);
+
+		if (lightLevel > highestLightItems[index].lightLevel) {
+			highestLightItems[index].lightLevel = lightLevel;
+			highestLightItems[index].itemId = item.itemHash;
+			console.log(
+				"New Highest Light: ",
+				lightLevel,
+				"Type",
+				ItemBucketHashes[index].name
+			);
+		}
 	}
 
+	console.log(highestLightItems);
 	const lightLevelBonus = 20;
-	const highestLightItems = [
-		{ itemId: "1", lightLevel: 0, itemImage: "" },
-		{ itemId: "2", lightLevel: 1000, itemImage: "" },
-		{ itemId: "3", lightLevel: 1000, itemImage: "" },
-		{ itemId: "4", lightLevel: 1001, itemImage: "" },
-		{ itemId: "5", lightLevel: 1000, itemImage: "" },
-		{ itemId: "6", lightLevel: 1000, itemImage: "" },
-		{ itemId: "7", lightLevel: 1000, itemImage: "" },
-		{ itemId: "8", lightLevel: 1000, itemImage: "" },
-	];
+	// const highestLightItems = [
+	// 	{ itemId: "1", lightLevel: 0, itemImage: "" },
+	// 	{ itemId: "2", lightLevel: 1000, itemImage: "" },
+	// 	{ itemId: "3", lightLevel: 1000, itemImage: "" },
+	// 	{ itemId: "4", lightLevel: 1001, itemImage: "" },
+	// 	{ itemId: "5", lightLevel: 1000, itemImage: "" },
+	// 	{ itemId: "6", lightLevel: 1000, itemImage: "" },
+	// 	{ itemId: "7", lightLevel: 1000, itemImage: "" },
+	// 	{ itemId: "8", lightLevel: 1000, itemImage: "" },
+	// ];
 	const lightLevel =
 		highestLightItems.reduce((total, item) => total + item.lightLevel, 0) /
 		highestLightItems.length;
