@@ -11,17 +11,17 @@ export async function getItemBucket(itemHash: number): Promise<string> {
 
 		if (!response.ok) {
 			throw new Error(
-				`Error fetching light level: ${response.status} ${response.statusText}`
+				`Error fetching item bucket: ${response.status} ${response.statusText}`
 			);
 		}
 
 		const data = await response.json();
 
-		const weaponTypeHash = data.Response.inventory.bucketTypeHash || 0;
+		const typeHash = data.Response.inventory.bucketTypeHash || 0;
 
-		return weaponTypeHash;
+		return typeHash;
 	} catch (error) {
-		console.error("Failed to fetch weapon type hash:", error);
+		console.error("Failed to fetch type hash:", error);
 		throw error;
 	}
 }

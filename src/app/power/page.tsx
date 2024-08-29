@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { fetchPowerData, PowerPageProps } from "../../util/getPowerData";
+import { fetchPowerData } from "../../util/getPowerData";
+import { PowerPageProps } from "@/types/powerPageProps";
 import PowerPage from "../../components/powerpage";
 
 export default function PowerPageContainer() {
