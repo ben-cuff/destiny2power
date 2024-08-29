@@ -105,13 +105,15 @@ export async function fetchPowerData(
 		}
 	}
 
-	highestLightItems.forEach(async (item) => {
-		const { name, icon } = await getItemNameImage(item.itemId);
-		item.name = name;
-		item.icon = icon;
-	});
+	await Promise.all(
+		highestLightItems.map(async (item) => {
+			const { name, icon } = await getItemNameImage(item.itemId);
+			item.name = name;
+			item.icon = icon;
+		})
+	);
 
-	console.log(highestLightItems);
+	console.log(await highestLightItems);
 	const lightLevelBonus = 20;
 
 	const lightLevel =
