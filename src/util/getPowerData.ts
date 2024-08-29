@@ -6,6 +6,8 @@ import { getItemNameIcon } from "./getItemNameIcon";
 import { getAllItems } from "./getAllItems";
 import { getPowerBonus } from "./getPowerBonus";
 
+// this functions gets the data necessary to create the power page
+
 export async function fetchPowerData(
 	accessToken: string,
 	membershipType: number,
@@ -43,7 +45,7 @@ export async function fetchPowerData(
 
 	const itemDetails = await Promise.all(itemDetailsPromises);
 
-	//loops through all of itemDetails
+	// loops through all of itemDetails
 	for (const { item, itemHash, lightLevel } of itemDetails) {
 		//finds the index of the item bucket if it exists
 		const index = ItemBucketHashes.findIndex(
@@ -62,7 +64,7 @@ export async function fetchPowerData(
 		}
 	}
 
-	//gets the name and icon for the highest light items
+	// gets the name and icon for the highest light items
 	await Promise.all(
 		highestLightItems.map(async (item) => {
 			const { name, icon } = await getItemNameIcon(item.itemId);

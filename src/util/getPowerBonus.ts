@@ -1,3 +1,5 @@
+// this function returns the player's power level bonus
+
 export async function getPowerBonus(
 	membershipType: number,
 	membershipId: string
@@ -20,6 +22,7 @@ export async function getPowerBonus(
 
 		const data = await response.json();
 
+		//gets the power bonus from the JSON
 		const powerBonus =
 			data.Response.profileProgression.data.seasonalArtifact
 				.powerBonusProgression.level;

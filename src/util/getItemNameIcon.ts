@@ -1,3 +1,5 @@
+// this function returns the name and icon for a given item
+
 export async function getItemNameIcon(
 	itemHash: string
 ): Promise<{ name: string; icon: string }> {
@@ -19,9 +21,11 @@ export async function getItemNameIcon(
 
 		const data = await response.json();
 
+		// assigns the values for the name and icon if they exist
 		const itemName = data.Response.displayProperties.name || "";
 		const itemIcon = data.Response.displayProperties.icon || "";
 
+		// returns the two items as an object
 		return { name: itemName, icon: itemIcon };
 	} catch (error) {
 		console.error("Failed to fetch weapon type hash:", error);
