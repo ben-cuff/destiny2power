@@ -56,8 +56,9 @@ export async function fetchPowerData(
 		{ name: "", itemId: "8", lightLevel: 0, icon: "" },
 	];
 
+	let maxCount = 0;
+
 	for (const item of combinedData) {
-		//await new Promise((resolve) => setTimeout(resolve, 2));
 		const itemHash = await getItemBucket(item.itemHash);
 		let index = -1;
 		for (let i = 0; i < ItemBucketHashes.length; i++) {
@@ -84,6 +85,10 @@ export async function fetchPowerData(
 			item.itemInstanceId
 		);
 
+		if (lightLevel == 2000) {
+			maxCount++;
+		}
+
 		if (lightLevel > highestLightItems[index].lightLevel) {
 			highestLightItems[index].lightLevel = lightLevel;
 			highestLightItems[index].itemId = item.itemHash;
@@ -93,6 +98,10 @@ export async function fetchPowerData(
 				"Type",
 				ItemBucketHashes[index].name
 			);
+		}
+
+		if (maxCount >= 8) {
+			break;
 		}
 	}
 

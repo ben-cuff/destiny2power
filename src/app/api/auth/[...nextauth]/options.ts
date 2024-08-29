@@ -17,7 +17,7 @@ declare module "next-auth" {
 	}
 }
 
-export const options: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
 	providers: [
 		BungieProvider({
 			clientId: process.env.BUNGIE_CLIENT_ID,

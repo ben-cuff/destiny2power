@@ -1,5 +1,3 @@
-"use client";
-
 import { PowerPageProps } from "@/types/powerPageProps";
 import Image from "next/image";
 
@@ -27,27 +25,19 @@ export default function PowerPage({
 			<p>Light Level: {lightLevelStringWithBonus}</p>
 			<p>Light Level without Bonus: {lightLevelString}</p>
 			<ul>
-				{highestLightItems.map(
-					(
-						item: {
-							name: string;
-							itemId: string;
-							lightLevel: number;
-							icon: string;
-						},
-						index: number
-					) => (
-						<li key={index}>
-							{item.name}: {item.lightLevel}{" "}
+				{highestLightItems.map((item, index) => (
+					<li key={index}>
+						{item.name}: {item.lightLevel}
+						{item.icon && (
 							<Image
 								src={`https://www.bungie.net${item.icon}`}
-								alt={item.name + " image"}
+								alt={item.name}
 								width={100}
 								height={100}
 							/>
-						</li>
-					)
-				)}
+						)}
+					</li>
+				))}
 			</ul>
 		</div>
 	);
