@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import Login from "@/components/navigation/login";
 
 export default function HomePage({
