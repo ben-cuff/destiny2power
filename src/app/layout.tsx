@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "@/components/navigation/navbar";
 import ClientProvider from "@/components/clientprovider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
 	title: "Destiny 2 Power",
@@ -16,11 +18,14 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
+				<SpeedInsights />
+				<Analytics />
 				<ClientProvider>
 					<div>
 						<h1>Destiny 2 Power</h1>
 						<NavBar />
 					</div>
+
 					{children}
 				</ClientProvider>
 			</body>
