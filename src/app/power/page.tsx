@@ -9,12 +9,6 @@ import Loading from "./loading";
 export default async function PowerPageContainer() {
 	const session = await getServerSession(authOptions);
 
-	initializeApiSession(
-		session?.accessToken || "",
-		session?.user?.membershipType || -2,
-		session?.user?.membershipId || "",
-	);
-
 	const powerData = await fetchPowerData(
 		session?.accessToken || "",
 		session?.user?.membershipType || -2,
