@@ -6,7 +6,7 @@ class ApiSession {
 	constructor(
 		accessToken: string,
 		membershipType: number,
-		membershipId: string,
+		membershipId: string
 	) {
 		this.accessToken = accessToken;
 		this.membershipType = membershipType;
@@ -40,26 +40,32 @@ let apiSession: ApiSession;
 export function initializeApiSession(
 	accessToken: string,
 	membershipType: number,
-	membershipId: string,
+	membershipId: string
 ) {
 	apiSession = new ApiSession(accessToken, membershipType, membershipId);
 }
 
 export async function requestProfileComponent(component: BungieComponents) {
-	fetch(
-		`https://www.bungie.net/Platform/Destiny2/${apiSession.membershipType}/Profile/${apiSession.membershipId}/?components=${component}`,
-		{
-			headers: new Headers({
-				Authorization: `Bearer ${apiSession.accessToken}` || "",
-				"X-API-Key": process.env.BUNGIE_API_KEY || "",
-			}),
-		},
-	).then((response) => {
+	try {
+		const response = await fetch(
+			`https://www.bungie.net/Platform/Destiny2/${apiSession.membershipType}/Profile/${apiSession.membershipId}/?components=${component}`,
+			{
+				headers: new Headers({
+					Authorization: `Bearer ${apiSession.accessToken}` || "",
+					"X-API-Key": process.env.BUNGIE_API_KEY || "",
+				}),
+			}
+		);
+
 		if (!response.ok) {
 			throw new Error(
-				`Error fetching component ${component}: ${response.status} ${response.statusText}`,
+				`Error fetching component ${component}: ${response.status} ${response.statusText}`
 			);
 		}
-		return response.json();
-	});
+
+		return await response.json();
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
 }
