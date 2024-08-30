@@ -35,15 +35,13 @@ export async function fetchPowerData(
 	// this gets all of the details necessary to find the highest light items
 	// this includes data already gathered about plus its light level and item bucket
 	const itemDetailsPromises = combinedData.map(async (item) => {
-        const itemHash = await getItemBucket(item.itemHash);
-        const lightLevel = await getLightLevel(
-            membershipType,
-            membershipId,
-            item.itemInstanceId
-        );
+		const [itemHash, lightLevel] = await Promise.all([
+			getItemBucket(item.itemHash),
+			getLightLevel(membershipType, membershipId, item.itemInstanceId),
+		]);
 
-        return { item, itemHash, lightLevel };
-    });
+		return { item, itemHash, lightLevel };
+	});
 
 	const itemDetails = await Promise.all(itemDetailsPromises);
 
