@@ -42,6 +42,7 @@ export function initializeApiSession(
 	membershipType: number,
 	membershipId: string
 ) {
+	console.log("constructing new API session")
 	apiSession = new ApiSession(accessToken, membershipType, membershipId);
 }
 

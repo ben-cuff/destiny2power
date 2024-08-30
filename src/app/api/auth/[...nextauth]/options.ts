@@ -1,5 +1,6 @@
 import { NextAuthOptions, User } from "next-auth";
 import BungieProvider from "next-auth/providers/bungie";
+import { initializeApiSession } from "@/util/bungieApiRequest";
 
 declare module "next-auth" {
 	interface User {
@@ -87,6 +88,11 @@ export const authOptions: NextAuthOptions = {
 			session.user.membershipId = token.membershipId as string;
 			session.user.membershipType = token.membershipType as number;
 			session.accessToken = token.accessToken as string;
+			initializeApiSession(
+				session?.accessToken || "",
+				session?.user?.membershipType || -2,
+				session?.user?.membershipId || ""
+			);
 			return session;
 		},
 	},
