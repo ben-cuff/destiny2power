@@ -14,11 +14,7 @@ export async function fetchPowerData(
 	membershipId: string
 ): Promise<PowerPageProps> {
 	// this has every item on your account
-	const combinedData = await getAllItems(
-		membershipType,
-		membershipId,
-		accessToken
-	);
+	const combinedData = await getAllItems();
 
 	// empty example that will be filled below
 	let highestLightItems = [
