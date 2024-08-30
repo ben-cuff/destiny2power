@@ -1,3 +1,5 @@
+// this function gets the light level of a particular item
+
 export async function getLightLevel(
 	membershipType: number,
 	membershipId: string,
@@ -21,6 +23,7 @@ export async function getLightLevel(
 
 		const data = await response.json();
 
+		// assigns the light level if it has one
 		const lightLevel = data.Response.instance.data?.primaryStat?.value || 0;
 
 		return lightLevel;

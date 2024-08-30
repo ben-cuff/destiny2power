@@ -1,3 +1,5 @@
+// this function gets the item bucket an item belongs to given a item
+
 export async function getItemBucket(itemHash: number): Promise<string> {
 	try {
 		const response = await fetch(
@@ -17,6 +19,7 @@ export async function getItemBucket(itemHash: number): Promise<string> {
 
 		const data = await response.json();
 
+		// assigns the bucket type hash
 		const typeHash = data.Response.inventory.bucketTypeHash || 0;
 
 		return typeHash;
