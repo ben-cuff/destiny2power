@@ -1,5 +1,5 @@
 import { PowerPageProps } from "@/types/powerPageProps";
-import ItemCard from "@/components/ItemCard"; // Adjust the import path as necessary
+import ItemCard from "./itemcard";
 
 export default function PowerPage({
 	lightLevel,
