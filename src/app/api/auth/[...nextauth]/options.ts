@@ -82,17 +82,18 @@ export const authOptions: NextAuthOptions = {
 				token.membershipType = user.membershipType;
 				token.accessToken = account.access_token;
 			}
+			initializeApiSession(
+				(token?.accessToken || "") as string,
+				(token?.membershipType || -2) as number,
+				(token?.membershipId || "") as string
+			);
 			return token;
 		},
 		async session({ session, token }) {
 			session.user.membershipId = token.membershipId as string;
 			session.user.membershipType = token.membershipType as number;
 			session.accessToken = token.accessToken as string;
-			initializeApiSession(
-				session?.accessToken || "",
-				session?.user?.membershipType || -2,
-				session?.user?.membershipId || ""
-			);
+
 			return session;
 		},
 	},
