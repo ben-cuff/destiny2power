@@ -80,7 +80,7 @@ export const authOptions: NextAuthOptions = {
 			if (account && user) {
 				token.membershipId = user.membershipId;
 				token.membershipType = user.membershipType;
-				token.accessToken = account.access_token;
+				token.accessToken = user.access_token;
 			}
 			initializeApiSession(
 				(token?.accessToken || "") as string,
