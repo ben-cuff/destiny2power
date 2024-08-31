@@ -8,7 +8,12 @@ module.exports = {
 		"./src/**/*.{js,ts,jsx,tsx,mdx}",
 	],
 	theme: {
-		extend: {},
+		extend: {
+			backgroundImage: {
+				"custom-gradient":
+					"linear-gradient(to bottom right, #1a202c, #2d3748)",
+			},
+		},
 	},
 	plugins: [],
 };
