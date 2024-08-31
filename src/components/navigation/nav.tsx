@@ -11,13 +11,13 @@ export default function Nav() {
 				<div className="flex space-x-10">
 					<Link
 						href="/prep"
-						className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none"
+						className="relative inline-flex items-center p-2 justify-center rounded-md text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none"
 					>
 						Seasonal Prep
 					</Link>
 					<Link
 						href="/power"
-						className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none"
+						className="relative inline-flex items-center p-2 justify-center rounded-md text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none"
 					>
 						Power Level
 					</Link>
