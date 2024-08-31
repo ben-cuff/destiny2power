@@ -6,7 +6,6 @@ declare module "next-auth" {
 	interface User {
 		membershipId?: string;
 		membershipType?: number;
-		accessToken?: string; // Add accessToken to User interface
 	}
 
 	interface Session {
@@ -42,11 +41,10 @@ export const authOptions: NextAuthOptions = {
 					const profile = await response.json();
 					return {
 						...profile,
-						accessToken: tokens.access_token, // Include access token in the profile
 					};
 				},
 			},
-			profile(profile, tokens) {
+			profile(profile) {
 				const membershipId = profile?.Response?.primaryMembershipId;
 				const memberships = profile?.Response?.destinyMemberships || [];
 				const primaryMembership = memberships.find(
@@ -68,7 +66,6 @@ export const authOptions: NextAuthOptions = {
 						: null,
 					membershipId: membershipId,
 					membershipType: primaryMembership?.membershipType,
-					accessToken: tokens.access_token, // Store access token in the user object
 				};
 
 				return user;
@@ -80,7 +77,7 @@ export const authOptions: NextAuthOptions = {
 			if (account && user) {
 				token.membershipId = user.membershipId;
 				token.membershipType = user.membershipType;
-				token.accessToken = user.accessToken;
+				token.accessToken = account.access_token;
 			}
 			initializeApiSession(
 				(token?.accessToken || "") as string,
