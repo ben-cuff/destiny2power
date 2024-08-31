@@ -6,7 +6,6 @@ declare module "next-auth" {
 	interface User {
 		membershipId?: string;
 		membershipType?: number;
-		accessToken?: string; // Add accessToken to User interface
 	}
 
 	interface Session {
@@ -42,11 +41,10 @@ export const authOptions: NextAuthOptions = {
 					const profile = await response.json();
 					return {
 						...profile,
-						accessToken: tokens.access_token, // Include access token in the profile
 					};
 				},
 			},
-			profile(profile, tokens) {
+			profile(profile) {
 				const membershipId = profile?.Response?.primaryMembershipId;
 				const memberships = profile?.Response?.destinyMemberships || [];
 				const primaryMembership = memberships.find(
@@ -68,7 +66,6 @@ export const authOptions: NextAuthOptions = {
 						: null,
 					membershipId: membershipId,
 					membershipType: primaryMembership?.membershipType,
-					accessToken: tokens.access_token, // Store access token in the user object
 				};
 
 				return user;
@@ -82,17 +79,18 @@ export const authOptions: NextAuthOptions = {
 				token.membershipType = user.membershipType;
 				token.accessToken = account.access_token;
 			}
+			initializeApiSession(
+				(token?.accessToken || "") as string,
+				(token?.membershipType || -2) as number,
+				(token?.membershipId || "") as string
+			);
 			return token;
 		},
 		async session({ session, token }) {
 			session.user.membershipId = token.membershipId as string;
 			session.user.membershipType = token.membershipType as number;
 			session.accessToken = token.accessToken as string;
-			initializeApiSession(
-				session?.accessToken || "",
-				session?.user?.membershipType || -2,
-				session?.user?.membershipId || ""
-			);
+
 			return session;
 		},
 	},

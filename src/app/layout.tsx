@@ -22,10 +22,8 @@ export default function RootLayout({
 				<Analytics />
 				<ClientProvider>
 					<div>
-						<h1>Destiny 2 Power</h1>
 						<NavBar />
 					</div>
-
 					{children}
 				</ClientProvider>
 			</body>
