@@ -34,16 +34,16 @@ export default function Profile() {
 						onClick={toggleMenu}
 					/>
 					<div
-						className={`absolute right-0 mt-2 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 transition-transform transition-opacity duration-300 ease-in-out ${
+						className={`absolute right-0 mt-2 bg-gray-700 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 transition-opacity duration-300 ease-in-out ${
 							menuVisible
 								? "opacity-100 translate-y-0 visible"
 								: "opacity-0 translate-y-2 invisible"
 						}`}
 					>
-						<ul className="py-1">
-							<li className="border-b border-gray-200">
+						<ul className="">
+							<li className="border-b border-gray-500 py-1 rounded-t-md hover:bg-gray-600 transition-colors">
 								<Image
-									className="w-6 h-6 mx-auto my-2 rounded-full cursor-pointer transition-transform transform hover:scale-105"
+									className="w-6 h-6 mx-auto my-2 rounded-full cursor-pointer transition-transform transform hover:scale-105 "
 									src="/setting.png"
 									alt="Settings"
 									width={30}
@@ -53,7 +53,7 @@ export default function Profile() {
 								/>
 							</li>
 							<li
-								className="px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer transition-colors"
+								className="px-4 pt-2 text-gray-200 hover:bg-gray-600 rounded-b-md cursor-pointer transition-colors pb-3"
 								onClick={() => void signOut()}
 							>
 								Logout
