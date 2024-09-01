@@ -46,6 +46,13 @@ export function initializeApiSession(
 }
 
 export async function requestProfileComponent(component: BungieComponents) {
+	console.log(
+		apiSession.accessToken +
+			"\n" +
+			apiSession.membershipType +
+			"\n" +
+			apiSession.membershipId,
+	);
 	try {
 		const response = await fetch(
 			`https://www.bungie.net/Platform/Destiny2/${apiSession.membershipType}/Profile/${apiSession.membershipId}/?components=${component}`,
@@ -58,7 +65,6 @@ export async function requestProfileComponent(component: BungieComponents) {
 		);
 
 		if (!response.ok) {
-			console.log(JSON.stringify(await response, null, 2));
 			throw new Error(
 				`Error fetching component ${component}: ${response.status} ${response.statusText}`,
 			);
