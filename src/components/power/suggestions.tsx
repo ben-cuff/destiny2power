@@ -46,7 +46,7 @@ export default function Suggestions({
 	}
 
 	return (
-		<div className="mt-6 animate-fade-in-up">
+		<div className="mt-6 w-80">
 			<h2 className="text-2xl font-semibold mb-2 text-gray-600 border-b border-gray-300 pb-2">
 				Suggestions
 			</h2>

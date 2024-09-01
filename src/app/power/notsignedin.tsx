@@ -1,4 +1,5 @@
 import Login from "@/components/navigation/login";
+import Suggestions from "@/components/power/suggestions";
 
 // This is the sign-in prompt page for the power page
 // It is designed to resemble the item cards
@@ -39,6 +40,9 @@ export default function NotSignedInPowerPage() {
 						))}
 					</div>
 				</div>
+			</div>
+			<div className="ml-8 max-w-sm p-4 h-auto max-h-64 overflow-auto">
+				<Suggestions lightLevel={3000} highestLightItems={[]} />
 			</div>
 		</div>
 	);
