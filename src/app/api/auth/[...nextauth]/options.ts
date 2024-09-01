@@ -75,6 +75,7 @@ export const authOptions: NextAuthOptions = {
 	callbacks: {
 		async jwt({ token, account, user }) {
 			if (account) {
+				console.log("Account:", account);
 				// First-time login, save the `access_token`, its expiry and the `refresh_token`
 				return {
 					...token,
@@ -120,10 +121,10 @@ export const authOptions: NextAuthOptions = {
 		async session({ session, token }) {
 			session.user.membershipId = token.membershipId as string;
 			session.user.membershipType = token.membershipType as number;
-			session.accessToken = token.accessToken as string;
+			session.accessToken = token.access_token as string;
 
 			initializeApiSession(
-				token.accessToken as string,
+				token.access_token as string,
 				token.membershipType as number,
 				token.membershipId as string,
 			);
