@@ -53,7 +53,11 @@ export default function Profile() {
 								/>
 							</li>
 							<li
-								className="px-4 pt-2 text-gray-200 hover:bg-gray-600 rounded-b-md cursor-pointer transition-colors pb-3"
+								className="px-4 text-gray-200 hover:bg-gray-600 rounded-b-md cursor-pointer transition-colors"
+								style={{
+									paddingTop: "11px",
+									paddingBottom: "14px",
+								}}
 								onClick={() => void signOut()}
 							>
 								Logout

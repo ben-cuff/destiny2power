@@ -142,6 +142,8 @@ export async function refreshAccessToken(refreshToken: string) {
 	const clientId = process.env.BUNGIE_CLIENT_ID!;
 	const clientSecret = process.env.BUNGIE_CLIENT_SECRET!;
 	const credentials = `${clientId}:${clientSecret}`;
+
+	// Generates base64 encoded string for basic auth
 	const base64Credentials = Buffer.from(credentials).toString("base64");
 	const headers = {
 		"Content-Type": "application/x-www-form-urlencoded",

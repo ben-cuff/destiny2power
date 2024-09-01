@@ -10,7 +10,6 @@ import { levelCaps } from "@/types/powerlevelcaps";
 // this functions gets the data necessary to create the power page
 
 export async function fetchPowerData(
-	accessToken: string,
 	membershipType: number,
 	membershipId: string,
 ): Promise<PowerPageProps> {
@@ -18,16 +17,20 @@ export async function fetchPowerData(
 	const combinedData = await getAllItems();
 
 	// empty example that will be filled below
-	let highestLightItems = [
-		{ name: "", itemId: "", lightLevel: 0, icon: "" },
-		{ name: "", itemId: "", lightLevel: 0, icon: "" },
-		{ name: "", itemId: "", lightLevel: 0, icon: "" },
-		{ name: "", itemId: "", lightLevel: 0, icon: "" },
-		{ name: "", itemId: "", lightLevel: 0, icon: "" },
-		{ name: "", itemId: "", lightLevel: 0, icon: "" },
-		{ name: "", itemId: "", lightLevel: 0, icon: "" },
-		{ name: "", itemId: "", lightLevel: 0, icon: "" },
-	];
+	let highestLightItems: Array<{
+		name: string;
+		itemId: string;
+		lightLevel: number;
+		icon: string;
+	}> = [];
+	for (let i = 0; i < 8; i++) {
+		highestLightItems.push({
+			name: "",
+			itemId: "",
+			lightLevel: 0,
+			icon: "",
+		});
+	}
 
 	// this gets all of the details necessary to find the highest light items
 	// this includes data already gathered about plus its light level and item bucket

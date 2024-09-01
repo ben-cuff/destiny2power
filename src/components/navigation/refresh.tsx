@@ -16,19 +16,18 @@ export default function Refresh() {
 		}
 	};
 
+	// handles the cooldown and refreshing state for the button
 	useEffect(() => {
 		if (isRefreshing) {
 			const timer = setTimeout(() => setIsRefreshing(false), 5000);
 			return () => clearTimeout(timer);
 		}
-	}, [isRefreshing]);
 
-	useEffect(() => {
 		if (isCooldown) {
 			const cooldownTimer = setTimeout(() => setIsCooldown(false), 5000);
 			return () => clearTimeout(cooldownTimer);
 		}
-	}, [isCooldown]);
+	}, [isRefreshing, isCooldown]);
 
 	return (
 		<button

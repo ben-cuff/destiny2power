@@ -4,6 +4,7 @@ type LevelCaps = {
 	pinnacleCap: number;
 };
 
+// Power level caps
 export const levelCaps: LevelCaps = {
 	softCap: 1940,
 	powerfulCap: 1990,
