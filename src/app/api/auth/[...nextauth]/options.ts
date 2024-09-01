@@ -104,6 +104,8 @@ export const authOptions: NextAuthOptions = {
 							Date.now() / 1000 + refreshedToken.expiresIn,
 						),
 						refresh_token: refreshedToken.refreshToken,
+						membershipId: user.id,
+						membershipType: user.membershipType,
 					};
 				} catch (error) {
 					console.error("Error refreshing access_token", error);
