@@ -58,7 +58,7 @@ export async function requestProfileComponent(component: BungieComponents) {
 		);
 
 		if (!response.ok) {
-			console.log(JSON.stringify(response, null, 2));
+			console.log(JSON.stringify(await response, null, 2));
 			throw new Error(
 				`Error fetching component ${component}: ${response.status} ${response.statusText}`,
 			);
