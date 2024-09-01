@@ -85,7 +85,7 @@ export const authOptions: NextAuthOptions = {
 					membershipType: user.membershipType,
 				};
 			} else if (Date.now() < (token.expires_at as number) * 1000) {
-				// Subsequent logins, but the `access_token` is still valid
+				// Subsequent logins, but the `access_token` is has not expired
 				return token;
 			} else {
 				// Subsequent logins, but the `access_token` has expired, try to refresh it
@@ -100,15 +100,19 @@ export const authOptions: NextAuthOptions = {
 					return {
 						...token,
 						access_token: refreshedToken.accessToken,
+						// Added to to the current timestamp to get the new expiry time
 						expires_at: Math.floor(
 							Date.now() / 1000 + refreshedToken.expiresIn,
 						),
 						refresh_token: refreshedToken.refreshToken,
-						membershipId: user.id,
-						membershipType: user.membershipType,
+						membershipId: token.membershipId,
+						membershipType: token.membershipType,
 					};
 				} catch (error) {
-					console.error("Error refreshing access_token", error);
+					console.error(
+						"Error refreshing access_token in jwt",
+						error,
+					);
 					// If we fail to refresh the token, return an error so we can handle it on the page
 					return {
 						...token,
@@ -149,7 +153,6 @@ export async function refreshAccessToken(refreshToken: string) {
 		refresh_token: refreshToken,
 	});
 
-	console.log("Refreshing access token...");
 	try {
 		const response = await fetch(url, {
 			method: "POST",
@@ -167,7 +170,6 @@ export async function refreshAccessToken(refreshToken: string) {
 			accessToken: data.access_token,
 			refreshToken: data.refresh_token,
 			expiresIn: data.expires_in,
-			refreshExpiresIn: data.refresh_expires_in,
 		};
 	} catch (error) {
 		console.error("Error refreshing access token:", error);
