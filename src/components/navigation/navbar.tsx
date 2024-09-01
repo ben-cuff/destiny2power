@@ -2,6 +2,7 @@
 
 import Profile from "./profile";
 import Nav from "./nav";
+import Refresh from "./refresh";
 
 // Constructs the actual navbar
 export default function NavBar() {
@@ -11,6 +12,7 @@ export default function NavBar() {
 				<Nav />
 			</div>
 			<div className="ml-auto">
+				<Refresh />
 				<Profile />
 			</div>
 		</div>

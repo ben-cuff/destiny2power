@@ -6,6 +6,7 @@ interface ItemCardProps {
 	icon?: string;
 }
 
+// This generates the item card for the power page
 const ItemCard: React.FC<ItemCardProps> = ({ name, lightLevel, icon }) => {
 	return (
 		<div className="flex items-center p-4 bg-gray-800 rounded-lg shadow-md">

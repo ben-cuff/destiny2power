@@ -31,9 +31,7 @@ export default function PowerPage({
 					{lightLevelStringWithBonus}
 				</p>
 				<p className="text-xl mb-4">
-					<span className="font-semibold">
-						Light Level without Bonus:
-					</span>{" "}
+					<span className="font-semibold">Base Light Level:</span>{" "}
 					{lightLevelString}
 				</p>
 				<div className="grid grid-cols-2 gap-6">

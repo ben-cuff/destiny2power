@@ -1,3 +1,5 @@
+// This is the loading page for the power page
+// It is designed to resemble the item cards
 export default function Loading() {
 	return (
 		<div className="p-6 text-white min-h-screen flex justify-center">

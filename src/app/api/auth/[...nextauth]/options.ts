@@ -36,7 +36,7 @@ export const authOptions: NextAuthOptions = {
 									{}) as Record<string, string>),
 								authorization: `Bearer ${tokens.access_token}`,
 							},
-						}
+						},
 					);
 					const profile = await response.json();
 					return {
@@ -49,7 +49,7 @@ export const authOptions: NextAuthOptions = {
 				const memberships = profile?.Response?.destinyMemberships || [];
 				const primaryMembership = memberships.find(
 					(m: { membershipId: any }) =>
-						m.membershipId === membershipId
+						m.membershipId === membershipId,
 				);
 
 				const profileImage =
@@ -73,25 +73,102 @@ export const authOptions: NextAuthOptions = {
 		}),
 	],
 	callbacks: {
-		async jwt({ token, user, account }) {
-			if (account && user) {
-				token.membershipId = user.membershipId;
-				token.membershipType = user.membershipType;
-				token.accessToken = account.access_token;
+		async jwt({ token, account, user }) {
+			if (account) {
+				// First-time login, save the `access_token`, its expiry and the `refresh_token`
+				return {
+					...token,
+					access_token: account.access_token,
+					expires_at: account.expires_at,
+					refresh_token: account.refresh_token,
+					membershipId: user.id,
+					membershipType: user.membershipType,
+				};
+			} else if (Date.now() < (token.expires_at as number) * 1000) {
+				// Subsequent logins, but the `access_token` is still valid
+				return token;
+			} else {
+				// Subsequent logins, but the `access_token` has expired, try to refresh it
+				if (!token.refresh_token)
+					throw new TypeError("Missing refresh_token");
+
+				try {
+					const refreshedToken = await refreshAccessToken(
+						token.refresh_token as string,
+					);
+
+					return {
+						...token,
+						access_token: refreshedToken.accessToken,
+						expires_at: Math.floor(
+							Date.now() / 1000 + refreshedToken.expiresIn,
+						),
+						refresh_token: refreshedToken.refreshToken,
+					};
+				} catch (error) {
+					console.error("Error refreshing access_token", error);
+					// If we fail to refresh the token, return an error so we can handle it on the page
+					return {
+						...token,
+						error: "RefreshTokenError",
+					};
+				}
 			}
-			initializeApiSession(
-				(token?.accessToken || "") as string,
-				(token?.membershipType || -2) as number,
-				(token?.membershipId || "") as string
-			);
-			return token;
 		},
 		async session({ session, token }) {
 			session.user.membershipId = token.membershipId as string;
 			session.user.membershipType = token.membershipType as number;
 			session.accessToken = token.accessToken as string;
 
+			initializeApiSession(
+				token.accessToken as string,
+				token.membershipType as number,
+				token.membershipId as string,
+			);
+
 			return session;
 		},
 	},
 };
+
+export async function refreshAccessToken(refreshToken: string) {
+	const url = "https://www.bungie.net/platform/app/oauth/token/";
+	const clientId = process.env.BUNGIE_CLIENT_ID!;
+	const clientSecret = process.env.BUNGIE_CLIENT_SECRET!;
+	const credentials = `${clientId}:${clientSecret}`;
+	const base64Credentials = Buffer.from(credentials).toString("base64");
+	const headers = {
+		"Content-Type": "application/x-www-form-urlencoded",
+		Authorization: `Basic ${base64Credentials}`,
+		"X-API-Key": process.env.BUNGIE_API_KEY || "",
+	};
+	const body = new URLSearchParams({
+		grant_type: "refresh_token",
+		refresh_token: refreshToken,
+	});
+
+	console.log("Refreshing access token...");
+	try {
+		const response = await fetch(url, {
+			method: "POST",
+			headers: headers,
+			body: body.toString(),
+		});
+
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+
+		const data = await response.json();
+
+		return {
+			accessToken: data.access_token,
+			refreshToken: data.refresh_token,
+			expiresIn: data.expires_in,
+			refreshExpiresIn: data.refresh_expires_in,
+		};
+	} catch (error) {
+		console.error("Error refreshing access token:", error);
+		throw error;
+	}
+}
