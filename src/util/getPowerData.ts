@@ -5,13 +5,14 @@ import { getItemBucket } from "./getItemBucket";
 import { getItemNameIcon } from "./getItemNameIcon";
 import { getAllItems } from "./getAllItems";
 import { getPowerBonus } from "./getPowerBonus";
+import { levelCaps } from "@/types/powerlevelcaps";
 
 // this functions gets the data necessary to create the power page
 
 export async function fetchPowerData(
 	accessToken: string,
 	membershipType: number,
-	membershipId: string
+	membershipId: string,
 ): Promise<PowerPageProps> {
 	// this has every item on your account
 	const combinedData = await getAllItems();
@@ -35,7 +36,7 @@ export async function fetchPowerData(
 		const lightLevel = await getLightLevel(
 			membershipType,
 			membershipId,
-			item.itemInstanceId
+			item.itemInstanceId,
 		);
 		return { item, itemHash, lightLevel };
 	});
@@ -46,11 +47,14 @@ export async function fetchPowerData(
 	for (const { item, itemHash, lightLevel } of itemDetails) {
 		//finds the index of the item bucket if it exists
 		const index = ItemBucketHashes.findIndex(
-			(bucketItem) => itemHash == bucketItem.hash
+			(bucketItem) => itemHash == bucketItem.hash,
 		);
 
 		// if it didn't exist or if the light level is already maxed it continues
-		if (index === -1 || highestLightItems[index].lightLevel >= 2000) {
+		if (
+			index === -1 ||
+			highestLightItems[index].lightLevel >= levelCaps.pinnacleCap
+		) {
 			continue;
 		}
 
@@ -67,7 +71,7 @@ export async function fetchPowerData(
 			const { name, icon } = await getItemNameIcon(item.itemId);
 			item.name = name;
 			item.icon = icon;
-		})
+		}),
 	);
 
 	// gets your account's light level bonus

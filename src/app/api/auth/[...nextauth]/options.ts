@@ -75,7 +75,6 @@ export const authOptions: NextAuthOptions = {
 	callbacks: {
 		async jwt({ token, account, user }) {
 			if (account) {
-				console.log("Account:", account);
 				// First-time login, save the `access_token`, its expiry and the `refresh_token`
 				return {
 					...token,
