@@ -1,5 +1,6 @@
 import { PowerPageProps } from "@/types/powerpageprops";
 import ItemCard from "../itemcard";
+import Suggestions from "./suggestions";
 
 export default function PowerPage({
 	lightLevel,
@@ -24,13 +25,13 @@ export default function PowerPage({
 	const rightItems = highestLightItems.slice(3);
 
 	return (
-		<div className="p-6 text-white min-h-screen flex justify-center">
+		<div className="p-4 text-white min-h-screen flex justify-center">
 			<div className="w-full max-w-3xl">
 				<p className="text-xl mb-2">
 					<span className="font-semibold">Light Level:</span>{" "}
 					{lightLevelStringWithBonus}
 				</p>
-				<p className="text-xl mb-4">
+				<p className="text-xl mb-2">
 					<span className="font-semibold">Base Light Level:</span>{" "}
 					{lightLevelString}
 				</p>
@@ -56,6 +57,12 @@ export default function PowerPage({
 						))}
 					</div>
 				</div>
+			</div>
+			<div className="ml-8 max-w-sm p-4 h-auto max-h-64 overflow-auto">
+				<Suggestions
+					highestLightItems={highestLightItems}
+					lightLevel={lightLevel}
+				/>
 			</div>
 		</div>
 	);
