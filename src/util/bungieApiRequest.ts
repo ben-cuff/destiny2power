@@ -1,17 +1,9 @@
 class ApiSession {
-	public accessToken: string;
-	public membershipType: number;
-	public membershipId: string;
-
 	constructor(
-		accessToken: string,
-		membershipType: number,
-		membershipId: string,
-	) {
-		this.accessToken = accessToken;
-		this.membershipType = membershipType;
-		this.membershipId = membershipId;
-	}
+		public readonly accessToken: string,
+		public readonly membershipType: number,
+		public readonly membershipId: string,
+	) {}
 
 	getAccessToken(): string {
 		return this.accessToken;
