@@ -1,6 +1,7 @@
 import { PowerPageProps } from "@/types/powerpageprops";
 import ItemCard from "../itemcard";
 import Suggestions from "./suggestions";
+import ActivityList from "./activitylist";
 
 export default function PowerPage({
 	lightLevel,
@@ -63,6 +64,7 @@ export default function PowerPage({
 					highestLightItems={highestLightItems}
 					lightLevel={lightLevel}
 				/>
+				<ActivityList />
 			</div>
 		</div>
 	);
