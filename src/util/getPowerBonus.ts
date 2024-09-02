@@ -2,7 +2,7 @@
 
 export async function getPowerBonus(
 	membershipType: number,
-	membershipId: string,
+	membershipId: string
 ): Promise<number> {
 	try {
 		const response = await fetch(
@@ -11,12 +11,12 @@ export async function getPowerBonus(
 				headers: new Headers({
 					"X-API-Key": process.env.BUNGIE_API_KEY || "",
 				}),
-			},
+			}
 		);
 
 		if (!response.ok) {
 			throw new Error(
-				`Error fetching Power Bonus: ${response.status} ${response.statusText}`,
+				`Error fetching Power Bonus: ${response.status} ${response.statusText}`
 			);
 		}
 
@@ -24,7 +24,8 @@ export async function getPowerBonus(
 
 		//gets the power bonus from the JSON
 		const powerBonus =
-			data.Response.profileProgression.data.seasonalArtifact.powerBonus;
+			data.Response.profileProgression.data.seasonalArtifact
+				.powerBonusProgression.level;
 
 		return powerBonus;
 	} catch (error) {
