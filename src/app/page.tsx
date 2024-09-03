@@ -1,21 +1,20 @@
-import { redirect } from "next/navigation";
-import Login from "@/components/navigation/login";
+import Image from "next/image";
 
-export default function HomePage({
-	searchParams,
-}: {
-	searchParams: { message?: string };
-}) {
-	const { message } = searchParams;
+export default function HomePage() {
 	return (
-		<div>
-			<div>Home Page</div>
-			{message === "signin" && (
-				<div>
-					<p>You need to sign in to access that page.</p>
-					<Login />
-				</div>
-			)}
+		<div className="flex flex-col items-center justify-center align-middle">
+			<div className="text-3xl text-gray-300">Prep Page</div>
+			<div className="text-xl text-gray-300">
+				This page is a work in progress, check back later to see how it
+				looks
+			</div>
+
+			<Image
+				src="/work-in-progress.png"
+				width={500}
+				height={500}
+				alt="work in progress"
+			></Image>
 		</div>
 	);
 }

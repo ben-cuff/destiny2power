@@ -3,7 +3,7 @@
 export async function getLightLevel(
 	membershipType: number,
 	membershipId: string,
-	itemInstanceId: string
+	itemInstanceId: string,
 ): Promise<number> {
 	try {
 		const response = await fetch(
@@ -12,12 +12,12 @@ export async function getLightLevel(
 				headers: new Headers({
 					"X-API-Key": process.env.BUNGIE_API_KEY || "",
 				}),
-			}
+			},
 		);
 
 		if (!response.ok) {
 			throw new Error(
-				`Error fetching light level: ${response.status} ${response.statusText}`
+				`Error fetching light level: ${response.status} ${response.statusText}`,
 			);
 		}
 
