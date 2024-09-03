@@ -26,11 +26,12 @@ export async function getPrepData() {
 	);
 	const itemDefinitions = await Promise.all(itemPromises);
 
-	const questItems = itemDefinitions.filter(
-		(item) => item.Response.inventory.bucketTypeHash === questBucketHash,
-	);
+	const bountyItemType = 26;
 
-	const bounties = questItems.filter((item) => item.Response.itemType === 26);
+	// Filters out all items that are not bounties
+	const bounties = itemDefinitions.filter(
+		(item) => item.Response.itemType === bountyItemType,
+	);
 
 	// Combine bounty item and its instance ID into a single object
 	const bountyDetails = bounties.map((bounty) => {
@@ -43,6 +44,7 @@ export async function getPrepData() {
 		};
 	});
 
+	// Gets the instance details for each bounty, necessary to determine completion status
 	const instancePromises = bountyDetails.map((bounty) =>
 		requestItemInstanceComponent(
 			BungieComponents.ITEM_OBJECTIVES,
@@ -69,11 +71,6 @@ export async function getPrepData() {
 			isComplete: isComplete,
 		};
 	});
-
-	console.log(
-		"Bounty Details with Completion: " +
-			JSON.stringify(bountyDetailsWithCompletion, null, 2),
-	);
 
 	return bountyDetailsWithCompletion;
 }
