@@ -1,6 +1,12 @@
 import Image from "next/image";
+import { getPrepData } from "@/util/get-prep-data";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/options";
 
-export default function PrepPage() {
+export default async function PrepPage() {
+	await getServerSession(authOptions);
+	const prepData = await getPrepData();
+
 	return (
 		<div className="flex flex-col items-center justify-center align-middle">
 			<div className="text-3xl text-gray-300">Prep Page</div>
