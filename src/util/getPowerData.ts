@@ -1,10 +1,10 @@
-import { PowerPageProps } from "@/types/powerpageprops";
-import { ItemBucketHashes } from "@/types/itembuckethashes";
-import { getLightLevel } from "./getlightlevel";
-import { getItemBucket } from "./getitembucket";
-import { getItemNameIcon } from "./getitemnameicon";
-import { getAllItems } from "./getallitems";
-import { getPowerBonus } from "./getpowerbonus";
+import { PowerPageProps } from "@/types/powerPageProps";
+import { ItemBucketHashes } from "@/types/itemBucketHashes";
+import { getLightLevel } from "./getLightLevel";
+import { getItemBucket } from "./getItemBucket";
+import { getItemNameIcon } from "./getItemNameIcon";
+import { getAllItems } from "./getAllItems";
+import { getPowerBonus } from "./getPowerBonus";
 import { levelCaps } from "@/types/powerlevelcaps";
 
 // this functions gets the data necessary to create the power page

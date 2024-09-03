@@ -1,4 +1,4 @@
-import { fetchPowerData } from "@/util/getpowerdata";
+import { fetchPowerData } from "@/util/getPowerData";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/options";
 import { Suspense } from "react";
