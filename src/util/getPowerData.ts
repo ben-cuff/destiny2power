@@ -36,11 +36,7 @@ export async function fetchPowerData(
 	// this includes data already gathered about plus its light level and item bucket
 	const itemDetailsPromises = combinedData.map(async (item) => {
 		const itemHash = await getItemBucket(item.itemHash);
-		const lightLevel = await getLightLevel(
-			membershipType,
-			membershipId,
-			item.itemInstanceId,
-		);
+		const lightLevel = await getLightLevel(item.itemInstanceId);
 		return { item, itemHash, lightLevel };
 	});
 
@@ -71,6 +67,7 @@ export async function fetchPowerData(
 	// gets the name and icon for the highest light items
 	await Promise.all(
 		highestLightItems.map(async (item) => {
+			console.log("ID:", item.itemId);
 			const { name, icon } = await getItemNameIcon(item.itemId);
 			item.name = name;
 			item.icon = icon;

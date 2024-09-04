@@ -1,7 +1,7 @@
 // this function returns the name and icon for a given item
 
 export async function getItemNameIcon(
-	itemHash: string
+	itemHash: string,
 ): Promise<{ name: string; icon: string }> {
 	try {
 		const response = await fetch(
@@ -10,12 +10,12 @@ export async function getItemNameIcon(
 				headers: new Headers({
 					"X-API-Key": process.env.BUNGIE_API_KEY || "",
 				}),
-			}
+			},
 		);
 
 		if (!response.ok) {
 			throw new Error(
-				`Error fetching Item name and Image: ${response.status} ${response.statusText}`
+				`Error fetching Item name and Image: ${response.status} ${response.statusText}`,
 			);
 		}
 

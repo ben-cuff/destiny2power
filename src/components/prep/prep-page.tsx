@@ -77,7 +77,7 @@ export default function PrepPage({ prepData }: { prepData: BountyProp[] }) {
 	});
 
 	return (
-		<div className="p-6 mx-auto flex flex-col items-center text-gray-600">
+		<div className="p-6 mx-auto flex flex-col items-center text-gray-400">
 			<h1 className="text-3xl font-bold mb-4 text-center">Prep Page</h1>
 			<div className="mb-6 text-center">
 				<p className="text-lg font-semibold">

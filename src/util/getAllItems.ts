@@ -9,7 +9,7 @@ export async function getAllItems(): Promise<any[]> {
 	// 201: character inventory
 	// 205: equipped items
 	const components = [
-		BungieComponents.PROFILE_INVENTORY,
+		BungieComponents.PROFILE_INVENTORIES,
 		BungieComponents.CHARACTER_INVENTORIES,
 		BungieComponents.CHARACTER_EQUIPMENT,
 	];
