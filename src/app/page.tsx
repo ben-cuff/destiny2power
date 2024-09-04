@@ -22,6 +22,12 @@ const Home: NextPage = () => {
           <p className="text-2xl text-white font-semibold">
             Welcome, {sessionData.user?.name}!
           </p>
+          <p className="text-lg text-gray-300 mb-8">
+            You are signed in with Bungie.net.
+            <p className="text-xl text-gray-300 mb-8">
+            Proceed to one of our pages in the menu bar to get started.
+            </p>
+          </p>
           
           <button
             className="mt-8 rounded-full bg-red-600 px-10 py-3 font-semibold text-white hover:bg-red-700"
