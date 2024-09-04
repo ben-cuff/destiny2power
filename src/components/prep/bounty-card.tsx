@@ -18,7 +18,7 @@ export default function BountyCard({ bounty }: { bounty: BountyProp }) {
 				onMouseLeave={() => setIsHovered(false)}
 			/>
 			<div
-				className={`absolute ml-24 flex flex-col justify-center bg-gray-400 p-2 w-64 border-gray-800 border-2 rounded-lg transition-opacity duration-300 ease-in-out pointer-events-none z-10 ${
+				className={`absolute ml-24 flex flex-col justify-center bg-gray-100 p-2 w-64 border-gray-800 border-2 rounded-lg transition-opacity duration-300 ease-in-out pointer-events-none z-10 ${
 					isHovered ? "opacity-100" : "opacity-0"
 				}`}
 			>
