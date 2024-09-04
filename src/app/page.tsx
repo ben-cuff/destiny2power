@@ -2,6 +2,7 @@
 
 import { signIn, signOut, useSession, SessionProvider } from "next-auth/react";
 import { NextPage } from "next";
+import Image from "next/image";
 
 const Home: NextPage = () => {
   const { data: sessionData } = useSession();
@@ -11,7 +12,7 @@ const Home: NextPage = () => {
       {sessionData ? (
         <div className="flex flex-col items-center">
           {sessionData.user?.image && (
-            <img
+            <Image
               src={sessionData.user.image}
               width={320}
               height={320}

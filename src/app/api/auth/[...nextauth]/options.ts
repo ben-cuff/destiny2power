@@ -1,6 +1,6 @@
 import { NextAuthOptions, User } from "next-auth";
 import BungieProvider from "next-auth/providers/bungie";
-import { initializeApiSession } from "@/util/bungieApiRequest";
+import { initializeApiSession } from "@/util/bungie-api-request";
 
 declare module "next-auth" {
 	interface User {

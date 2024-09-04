@@ -1,4 +1,4 @@
-import { levelCaps } from "@/types/powerlevelcaps";
+import { levelCaps } from "@/types/power-level-caps";
 import { SuggestionsProps } from "@/types/suggestionsprops";
 
 export default function Suggestions({

@@ -3,7 +3,7 @@
 import {
 	BungieComponents,
 	requestItemInstanceComponent,
-} from "./bungieApiRequest";
+} from "./bungie-api-request";
 
 export async function getLightLevel(itemInstanceId: string): Promise<number> {
 	const data = await requestItemInstanceComponent(

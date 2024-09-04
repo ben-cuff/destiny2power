@@ -2,9 +2,9 @@ import {
 	requestProfileComponent,
 	requestItemDefinition,
 	requestItemInstanceComponent,
-} from "./bungieApiRequest";
-import { BungieComponents } from "./bungieApiRequest";
-import { questBucketHash } from "@/types/itemBucketHashes";
+} from "./bungie-api-request";
+import { BungieComponents } from "./bungie-api-request";
+import { questBucketHash } from "@/types/item-bucket-hashes";
 
 export async function getPrepData() {
 	// Get the character inventories, which is where bounties are stored

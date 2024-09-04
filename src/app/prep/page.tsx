@@ -3,7 +3,6 @@ import { authOptions } from "../api/auth/[...nextauth]/options";
 import { getPrepData } from "@/util/get-prep-data";
 import Login from "@/components/navigation/login";
 import PrepPage from "@/components/prep/prep-page";
-import Loading from "./loading";
 
 export default async function PrepPageContainer() {
 	const session = await getServerSession(authOptions);
@@ -20,7 +19,6 @@ export default async function PrepPageContainer() {
 
 	return (
 		<div>
-			<Loading />
 			<PrepPage prepData={prepData} />
 		</div>
 	);
