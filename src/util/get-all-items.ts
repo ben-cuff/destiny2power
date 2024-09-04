@@ -1,4 +1,7 @@
-import { requestProfileComponent, BungieComponents } from "./bungieApiRequest";
+import {
+	requestProfileComponent,
+	BungieComponents,
+} from "./bungie-api-request";
 
 // this function fetches all of the items on your account
 // this includes your equipped items, items on your characters, and items in your vault
@@ -9,7 +12,7 @@ export async function getAllItems(): Promise<any[]> {
 	// 201: character inventory
 	// 205: equipped items
 	const components = [
-		BungieComponents.PROFILE_INVENTORY,
+		BungieComponents.PROFILE_INVENTORIES,
 		BungieComponents.CHARACTER_INVENTORIES,
 		BungieComponents.CHARACTER_EQUIPMENT,
 	];

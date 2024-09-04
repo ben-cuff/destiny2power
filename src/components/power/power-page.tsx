@@ -1,5 +1,5 @@
-import { PowerPageProps } from "@/types/powerPageProps";
-import ItemCard from "../itemcard";
+import { PowerPageProps } from "@/types/power-page-props";
+import ItemCard from "./item-card";
 import Suggestions from "./suggestions";
 
 export default function PowerPage({

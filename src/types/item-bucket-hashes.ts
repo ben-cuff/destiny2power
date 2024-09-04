@@ -10,3 +10,5 @@ export const ItemBucketHashes = [
 	{ hash: "20886954", name: "legs" },
 	{ hash: "1585787867", name: "class" },
 ];
+
+export const questBucketHash = 1345459588;

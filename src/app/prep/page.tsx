@@ -1,20 +1,25 @@
-import Image from "next/image";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/options";
+import { getPrepData } from "@/util/get-prep-data";
+import Login from "@/components/navigation/login";
+import PrepPage from "@/components/prep/prep-page";
 
-export default function PrepPage() {
-	return (
-		<div className="flex flex-col items-center justify-center align-middle">
-			<div className="text-3xl text-gray-300">Prep Page</div>
-			<div className="text-xl text-gray-300">
-				This page is a work in progress, check back later to see how it
-				looks
+export default async function PrepPageContainer() {
+	const session = await getServerSession(authOptions);
+
+	if (!session) {
+		return (
+			<div className="mt-20">
+				<Login />
 			</div>
+		);
+	}
 
-			<Image
-				src="/work-in-progress.png"
-				width={500}
-				height={500}
-				alt="work in progress"
-			></Image>
+	const prepData = await getPrepData();
+
+	return (
+		<div>
+			<PrepPage prepData={prepData} />
 		</div>
 	);
 }

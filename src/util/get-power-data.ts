@@ -1,11 +1,11 @@
-import { PowerPageProps } from "@/types/powerPageProps";
-import { ItemBucketHashes } from "@/types/itemBucketHashes";
-import { getLightLevel } from "./getLightLevel";
-import { getItemBucket } from "./getItemBucket";
-import { getItemNameIcon } from "./getItemNameIcon";
-import { getAllItems } from "./getAllItems";
-import { getPowerBonus } from "./getPowerBonus";
-import { levelCaps } from "@/types/powerlevelcaps";
+import { PowerPageProps } from "@/types/power-page-props";
+import { ItemBucketHashes } from "@/types/item-bucket-hashes";
+import { getLightLevel } from "./get-light-level";
+import { getItemBucket } from "./get-item-bucket";
+import { getItemNameIcon } from "./get-item-name-icon";
+import { getAllItems } from "./get-all-items";
+import { getPowerBonus } from "./get-power-bonus";
+import { levelCaps } from "@/types/power-level-caps";
 
 // this functions gets the data necessary to create the power page
 
@@ -36,11 +36,7 @@ export async function fetchPowerData(
 	// this includes data already gathered about plus its light level and item bucket
 	const itemDetailsPromises = combinedData.map(async (item) => {
 		const itemHash = await getItemBucket(item.itemHash);
-		const lightLevel = await getLightLevel(
-			membershipType,
-			membershipId,
-			item.itemInstanceId,
-		);
+		const lightLevel = await getLightLevel(item.itemInstanceId);
 		return { item, itemHash, lightLevel };
 	});
 
@@ -71,6 +67,7 @@ export async function fetchPowerData(
 	// gets the name and icon for the highest light items
 	await Promise.all(
 		highestLightItems.map(async (item) => {
+			console.log("ID:", item.itemId);
 			const { name, icon } = await getItemNameIcon(item.itemId);
 			item.name = name;
 			item.icon = icon;
