@@ -19,9 +19,5 @@ export default async function PowerPageContainer() {
 		session?.user?.membershipId || "",
 	);
 
-	return (
-		<Suspense fallback={<Loading />}>
-			<PowerPage {...powerData} />
-		</Suspense>
-	);
+	return <PowerPage {...powerData} />;
 }
