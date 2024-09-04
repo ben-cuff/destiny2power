@@ -12,7 +12,6 @@ export default function PrepPage({ prepData }: { prepData: BountyProp[] }) {
 
 	// recalculate XP when blinding light or prepData changes
 	useEffect(() => {
-		
 		// calculate total XP potential and saved
 		let { totalXPPotential, totalXPSaved } = prepData.reduce(
 			(acc, bounty) => {
@@ -74,10 +73,10 @@ export default function PrepPage({ prepData }: { prepData: BountyProp[] }) {
 	} else {
 		return (
 			<div className="p-6 mx-auto flex flex-col items-center text-gray-400">
-				<h1 className="text-3xl font-bold mb-4 text-center">
+				<h1 className="text-3xl font-bold mb-4 text-center animate-fade-in-up">
 					Prep Page
 				</h1>
-				<div className="mb-6 text-center">
+				<div className="mb-6 text-center animate-fade-in-up">
 					<p className="text-lg font-semibold">
 						Total XP Potential: {totalXPPotential.toFixed(0)}
 					</p>
@@ -86,7 +85,7 @@ export default function PrepPage({ prepData }: { prepData: BountyProp[] }) {
 					</p>
 				</div>
 
-				<div className="mb-6 flex items-center">
+				<div className="mb-6 flex items-center animate-fade-in-up">
 					<label
 						className="text-lg font-semibold mr-2"
 						htmlFor="blinding-light"
