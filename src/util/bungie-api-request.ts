@@ -173,7 +173,8 @@ async function fetchWithRetry(
 			return response;
 		} catch (error) {
 			clearTimeout(id);
-			if (error.name === "AbortError") {
+			const err = error as Error;
+			if (err.name === "AbortError") {
 				console.warn(
 					`Fetch request timed out, retrying in ${backoff}ms... (${i + 1}/${retries})`,
 				);
