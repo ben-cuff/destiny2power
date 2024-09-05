@@ -88,26 +88,18 @@ export function initializeApiSession(
 export async function requestProfileComponent(
 	component: BungieComponents,
 ): Promise<any> {
-	try {
-		const response = await fetch(
-			`https://www.bungie.net/Platform/Destiny2/${apiSession.membershipType}/Profile/${apiSession.membershipId}/?components=${component}`,
-			{
-				headers: new Headers({
-					Authorization: `Bearer ${apiSession.accessToken}` || "",
-					"X-API-Key": process.env.BUNGIE_API_KEY || "",
-				}),
-			},
-		);
+	const url = `https://www.bungie.net/Platform/Destiny2/${apiSession.membershipType}/Profile/${apiSession.membershipId}/?components=${component}`;
+	const headers = new Headers({
+		Authorization: `Bearer ${apiSession.accessToken}` || "",
+		"X-API-Key": process.env.BUNGIE_API_KEY || "",
+	});
 
-		if (!response.ok) {
-			throw new Error(
-				`Error fetching component ${component}: ${response.status} ${response.statusText}`,
-			);
-		}
+	try {
+		const response = await fetchWithRetry(url, { headers });
 
 		return await response.json();
 	} catch (error) {
-		console.error(error);
+		console.error(`Error fetching profile component: ${component}`, error);
 		throw error;
 	}
 }
@@ -117,26 +109,18 @@ export async function requestProfileComponent(
  * @returns - the response from the API
  */
 export async function requestItemDefinition(itemHash: number): Promise<any> {
-	try {
-		const response = await fetch(
-			`https://www.bungie.net/Platform/Destiny2/Manifest/DestinyInventoryItemDefinition/${itemHash}/`,
-			{
-				headers: new Headers({
-					Authorization: `Bearer ${apiSession.accessToken}` || "",
-					"X-API-Key": process.env.BUNGIE_API_KEY || "",
-				}),
-			},
-		);
+	const url = `https://www.bungie.net/Platform/Destiny2/Manifest/DestinyInventoryItemDefinition/${itemHash}/`;
+	const headers = new Headers({
+		Authorization: `Bearer ${apiSession.accessToken}` || "",
+		"X-API-Key": process.env.BUNGIE_API_KEY || "",
+	});
 
-		if (!response.ok) {
-			throw new Error(
-				`Error fetching item definition ${itemHash}: ${response.status} ${response.statusText}`,
-			);
-		}
+	try {
+		const response = await fetchWithRetry(url, { headers });
 
 		return await response.json();
 	} catch (error) {
-		console.error(error);
+		console.error(`Error fetching item definition ${itemHash}:`, error);
 		throw error;
 	}
 }
@@ -151,26 +135,60 @@ export async function requestItemInstanceComponent(
 	component: BungieComponents,
 	itemInstanceId: string,
 ): Promise<any> {
-	try {
-		const response = await fetch(
-			`https://www.bungie.net/Platform/Destiny2/${apiSession.membershipType}/Profile/${apiSession.membershipId}/Item/${itemInstanceId}/?components=${component}`,
-			{
-				headers: new Headers({
-					Authorization: `Bearer ${apiSession.accessToken}` || "",
-					"X-API-Key": process.env.BUNGIE_API_KEY || "",
-				}),
-			},
-		);
+	const url = `https://www.bungie.net/Platform/Destiny2/${apiSession.membershipType}/Profile/${apiSession.membershipId}/Item/${itemInstanceId}/?components=${component}`;
+	const headers = new Headers({
+		Authorization: `Bearer ${apiSession.accessToken}` || "",
+		"X-API-Key": process.env.BUNGIE_API_KEY || "",
+	});
 
-		if (!response.ok) {
-			throw new Error(
-				`Error fetching component ${component}: ${response.status} ${response.statusText}`,
-			);
-		}
+	try {
+		const response = await fetchWithRetry(url, { headers });
 
 		return await response.json();
 	} catch (error) {
-		console.error(error);
+		console.error(`Error fetching component ${component}:`, error);
 		throw error;
 	}
+}
+
+async function fetchWithRetry(
+	url: string,
+	options: RequestInit = {},
+	retries: number = 3,
+	backoff: number = 1000,
+	timeout: number = 20000, // Timeout in milliseconds
+): Promise<Response> {
+	for (let i = 0; i < retries; i++) {
+		const controller = new AbortController();
+		const id = setTimeout(() => controller.abort(), timeout);
+		try {
+			const response = await fetch(url, {
+				...options,
+				signal: controller.signal,
+			});
+			clearTimeout(id);
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+			return response;
+		} catch (error) {
+			clearTimeout(id);
+			if (error.name === "AbortError") {
+				console.warn(
+					`Fetch request timed out, retrying in ${backoff}ms... (${i + 1}/${retries})`,
+				);
+			} else {
+				console.warn(
+					`Fetch failed, retrying in ${backoff}ms... (${i + 1}/${retries})`,
+				);
+			}
+			if (i < retries - 1) {
+				await new Promise((resolve) => setTimeout(resolve, backoff));
+				backoff *= 2; // Exponential backoff
+			} else {
+				throw error;
+			}
+		}
+	}
+	throw new Error("Fetch failed after all retries");
 }
