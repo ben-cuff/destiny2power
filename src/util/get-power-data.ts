@@ -23,6 +23,8 @@ export async function fetchPowerData(
 		lightLevel: number;
 		icon: string;
 	}> = [];
+
+	// fills array
 	for (let i = 0; i < 8; i++) {
 		highestLightItems.push({
 			name: "",
@@ -35,8 +37,10 @@ export async function fetchPowerData(
 	// this gets all of the details necessary to find the highest light items
 	// this includes data already gathered about plus its light level and item bucket
 	const itemDetailsPromises = combinedData.map(async (item) => {
-		const itemHash = await getItemBucket(item.itemHash);
-		const lightLevel = await getLightLevel(item.itemInstanceId);
+		const [itemHash, lightLevel] = await Promise.all([
+			getItemBucket(item.itemHash),
+			getLightLevel(item.itemInstanceId),
+		]);
 		return { item, itemHash, lightLevel };
 	});
 
@@ -66,11 +70,15 @@ export async function fetchPowerData(
 
 	// gets the name and icon for the highest light items
 	await Promise.all(
-		highestLightItems.map(async (item) => {
-			console.log("ID:", item.itemId);
-			const { name, icon } = await getItemNameIcon(item.itemId);
-			item.name = name;
-			item.icon = icon;
+		highestLightItems.map(async (item, index) => {
+			if (item.itemId) {
+				const { name, icon } = await getItemNameIcon(item.itemId);
+				highestLightItems[index] = {
+					...item,
+					name,
+					icon,
+				};
+			}
 		}),
 	);
 
@@ -81,6 +89,7 @@ export async function fetchPowerData(
 	const lightLevel =
 		highestLightItems.reduce((total, item) => total + item.lightLevel, 0) /
 		highestLightItems.length;
+
 	return {
 		lightLevel,
 		lightLevelBonus,
