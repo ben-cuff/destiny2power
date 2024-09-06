@@ -67,7 +67,6 @@ export async function fetchPowerData(
 	// gets the name and icon for the highest light items
 	await Promise.all(
 		highestLightItems.map(async (item) => {
-			console.log("ID:", item.itemId);
 			const { name, icon } = await getItemNameIcon(item.itemId);
 			item.name = name;
 			item.icon = icon;
