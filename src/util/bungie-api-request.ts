@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 
+// class used to store data about an authSession
 class ApiSession {
 	constructor(
 		public readonly accessToken: string,
@@ -21,9 +22,7 @@ class ApiSession {
 	}
 }
 
-// 102: vault
-// 201: character inventory
-// 205: equipped items
+// all of the bungie components and their descriptions
 export enum BungieComponents {
 	NONE = "0",
 	PROFILES = "100", // Profiles is the most basic component, only relevant when calling GetProfile. This returns basic information about the profile.
@@ -67,6 +66,12 @@ export enum BungieComponents {
 
 let apiSession: ApiSession;
 
+/**
+ * Initializes the API session with the provided access token, membership type, and membership ID.
+ * @param accessToken - The access token for the API session.
+ * @param membershipType - The membership type for the API session.
+ * @param membershipId - The membership ID for the API session.
+ */
 export function initializeApiSession(
 	accessToken: string,
 	membershipType: number,
@@ -75,6 +80,11 @@ export function initializeApiSession(
 	apiSession = new ApiSession(accessToken, membershipType, membershipId);
 }
 
+/**
+ * Makes the getProfile API call
+ * @param component - the BungieComponent that the API call is using
+ * @returns - the response to the api call
+ */
 export async function requestProfileComponent(
 	component: BungieComponents,
 ): Promise<any> {
@@ -101,7 +111,11 @@ export async function requestProfileComponent(
 		throw error;
 	}
 }
-
+/**
+ * Gets the DestinyInventoryItemDefinition for a item hash from the manifest
+ * @param itemHash - the given item hash that you want information about.
+ * @returns - the response from the API
+ */
 export async function requestItemDefinition(itemHash: number): Promise<any> {
 	try {
 		const response = await fetch(
@@ -127,6 +141,12 @@ export async function requestItemDefinition(itemHash: number): Promise<any> {
 	}
 }
 
+/**
+ * performs the get itemInstance API call through getProfile
+ * @param component - the BungieComponent that the API call is using
+ * @param itemInstanceId - the specific item instance you want to know about
+ * @returns - the response from the API
+ */
 export async function requestItemInstanceComponent(
 	component: BungieComponents,
 	itemInstanceId: string,
