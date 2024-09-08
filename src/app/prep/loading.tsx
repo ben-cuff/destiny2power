@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+// Loading page for the prep route
 export default function Loading() {
 	return (
 		<div className="flex justify-center items-center h-screen">
