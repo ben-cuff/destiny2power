@@ -14,10 +14,7 @@ export default async function PowerPageContainer() {
 		return <NotSignedInPowerPage />;
 	}
 
-	const powerData = await fetchPowerData(
-		session?.user?.membershipType || -2,
-		session?.user?.membershipId || "",
-	);
+	const powerData = await fetchPowerData();
 
 	return <PowerPage {...powerData} />;
 }

@@ -2,6 +2,12 @@ import { PowerPageProps } from "@/types/power-page-props";
 import ItemCard from "./item-card";
 import Suggestions from "./suggestions";
 
+/**
+ * The PowerPage component displays the power page.
+ *
+ * @param {PowerPageProps} props - The component props.
+ * @returns {JSX.Element} The rendered PowerPage component.
+ */
 export default function PowerPage({
 	lightLevel,
 	lightLevelBonus,

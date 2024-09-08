@@ -1,12 +1,20 @@
 import Image from "next/image";
 
+// the props needed to construct the item card
 interface ItemCardProps {
 	name: string;
 	lightLevel: number;
 	icon?: string;
 }
 
-// This generates the item card for the power page
+/**
+ * The ItemCard component displays a card for an item.
+ *
+ * @param {string} props.name - The name of the item.
+ * @param {number} props.lightLevel - The light level of the item.
+ * @param {string} [props.icon] - The icon of the item.
+ * @returns {JSX.Element} The rendered ItemCard component.
+ */
 const ItemCard: React.FC<ItemCardProps> = ({ name, lightLevel, icon }) => {
 	return (
 		<div className="flex items-center p-4 bg-gray-800 rounded-lg shadow-md animate-fade-in-up">
