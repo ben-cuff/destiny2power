@@ -1,7 +1,16 @@
+"use client"
+
 import Image from "next/image";
 import { useState } from "react";
 import { BountyProp } from "@/types/bounty-prop";
 
+/**
+ * Renders a bounty card component.
+ *
+ * @param {Object} props - The component props.
+ * @param {BountyProp} props.bounty - The bounty object to be displayed.
+ * @returns {JSX.Element} The rendered bounty card component.
+ */
 export default function BountyCard({ bounty }: { bounty: BountyProp }) {
 	const [isHovered, setIsHovered] = useState(false);
 

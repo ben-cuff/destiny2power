@@ -5,6 +5,13 @@ import BountyCard from "./bounty-card";
 import { BOUNTY_XP_VALUES } from "@/types/bounty-xp-values";
 import { BountyProp } from "@/types/bounty-prop";
 
+/**
+ * PrepPage component displays a page for preparing bounties.
+ *
+ * @param {Object} props - The component props.
+ * @param {BountyProp[]} props.prepData - The array of bounty data.
+ * @returns {JSX.Element} The rendered PrepPage component.
+ */
 export default function PrepPage({ prepData }: { prepData: BountyProp[] }) {
 	const [isBlindingLightActive, setIsBlindingLightActive] = useState(false);
 	const [totalXPPotential, setTotalXPPotential] = useState(0);
