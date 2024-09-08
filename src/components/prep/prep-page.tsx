@@ -101,7 +101,7 @@ export default function PrepPage({ prepData }: { prepData: BountyProp[] }) {
 					/>
 				</div>
 
-				<div className="grid grid-cols-6 sm:grid-cols-8 lg:grid-cols-12 gap-[4px] justify-center">
+				<div className="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-12 gap-[4px] justify-center">
 					{prepData.map((bounty) => (
 						<BountyCard key={bounty.name} bounty={bounty} />
 					))}
