@@ -5,8 +5,14 @@ import {
 } from "./bungie-api-request";
 
 import { BungieComponents } from "@/types/bungie-components";
+import { BountyProp } from "@/types/bounty-prop";
 
-export async function getPrepData() {
+/**
+ * Retrieves the prepared data for bounties.
+ *
+ * @returns {promise<BountyProp[]>} - The prepared data needed to construct bounties.
+ */
+export async function getPrepData(): Promise<BountyProp[]> {
 	// Get the character inventories, which is where bounties are stored
 	const characterData = await requestProfileComponent(
 		BungieComponents.CHARACTER_INVENTORIES,
@@ -15,12 +21,14 @@ export async function getPrepData() {
 	const allItems: any[] = [];
 	const inventories = characterData.Response.characterInventories.data;
 
+	// Combine all items from all characters into a single array
 	for (const characterId in inventories) {
 		if (inventories.hasOwnProperty(characterId)) {
 			allItems.push(...inventories[characterId].items);
 		}
 	}
 
+	// Get the item definitions for all items 
 	const itemPromises = allItems.map((item) =>
 		requestItemDefinition(item.itemHash),
 	);

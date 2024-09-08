@@ -1,6 +1,12 @@
 import { levelCaps } from "@/types/power-level-caps";
 import { SuggestionsProps } from "@/types/suggestions-props";
 
+/**
+ * Renders suggestions based on the provided light level and highest light items.
+ * 
+ * @param {SuggestionsProps} props - The props containing the light level and highest light items.
+ * @returns {JSX.Element} The rendered suggestions component to be rendered on the power page.
+ */
 export default function Suggestions({
 	lightLevel,
 	highestLightItems,
