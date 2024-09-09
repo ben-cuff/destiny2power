@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/options";
 import { getPrepData } from "@/util/get-prep-data";
-import BountyCard from "@/components/prep/bounty-card";
+import { BountyProp } from "@/types/bounty-prop";
 import Login from "@/components/navigation/login";
 import PrepPage from "@/components/prep/prep-page";
 
@@ -22,7 +22,7 @@ export default async function PrepPageContainer() {
 		);
 	}
 
-	const prepData: BountyCard[] = await getPrepData();
+	const prepData: BountyProp[] = await getPrepData();
 	
 	return (
 		<div>
