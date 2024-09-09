@@ -1,7 +1,6 @@
-import {
-	requestProfileComponent,
-	BungieComponents,
-} from "./bungie-api-request";
+import { requestProfileComponent } from "./bungie-api-request";
+
+import { BungieComponents } from "@/types/bungie-components";
 
 // this function fetches all of the items on your account
 // this includes your equipped items, items on your characters, and items in your vault

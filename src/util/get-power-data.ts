@@ -7,12 +7,12 @@ import { getAllItems } from "./get-all-items";
 import { getPowerBonus } from "./get-power-bonus";
 import { levelCaps } from "@/types/power-level-caps";
 
-// this functions gets the data necessary to create the power page
 
-export async function fetchPowerData(
-	membershipType: number,
-	membershipId: string,
-): Promise<PowerPageProps> {
+/**
+ * Fetches the power data necessary to create the power page.
+ * @returns {promise<PowerPageProps>} - The power data needed to construct the power page
+ */
+export async function fetchPowerData(): Promise<PowerPageProps> {
 	// this has every item on your account
 	const combinedData = await getAllItems();
 
@@ -74,7 +74,7 @@ export async function fetchPowerData(
 	);
 
 	// gets your account's light level bonus
-	const lightLevelBonus = await getPowerBonus(membershipType, membershipId);
+	const lightLevelBonus = await getPowerBonus();
 
 	// calculates the base light level using the highest light items
 	const lightLevel =

@@ -4,6 +4,7 @@ import { signIn, signOut, useSession, SessionProvider } from "next-auth/react";
 import { NextPage } from "next";
 import Image from "next/image";
 
+// component for the home page.
 const Home: NextPage = () => {
 	const { data: sessionData } = useSession();
 

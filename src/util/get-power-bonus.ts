@@ -1,35 +1,16 @@
-// this function returns the player's power level bonus
+import { requestProfileComponent } from "./bungie-api-request";
+import { BungieComponents } from "@/types/bungie-components";
 
-export async function getPowerBonus(
-	membershipType: number,
-	membershipId: string
-): Promise<number> {
-	try {
-		const response = await fetch(
-			`https://www.bungie.net/Platform/Destiny2/${membershipType}/Profile/${membershipId}/?components=104`,
-			{
-				headers: new Headers({
-					"X-API-Key": process.env.BUNGIE_API_KEY || "",
-				}),
-			}
-		);
 
-		if (!response.ok) {
-			throw new Error(
-				`Error fetching Power Bonus: ${response.status} ${response.statusText}`
-			);
-		}
+export async function getPowerBonus(): Promise<number> {
+	const data = await requestProfileComponent(
+		BungieComponents.PROFILE_PROGRESSION,
+	);
 
-		const data = await response.json();
+	//gets the power bonus from the JSON
+	const powerBonus =
+		data.Response.profileProgression.data.seasonalArtifact
+			.powerBonusProgression.level;
 
-		//gets the power bonus from the JSON
-		const powerBonus =
-			data.Response.profileProgression.data.seasonalArtifact
-				.powerBonusProgression.level;
-
-		return powerBonus;
-	} catch (error) {
-		console.error("Failed to fetch Power Bonus:", error);
-		throw error;
-	}
+	return powerBonus;
 }
