@@ -1,11 +1,10 @@
 "use client";
 
-import { signIn, signOut, useSession, SessionProvider } from "next-auth/react";
-import { NextPage } from "next";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 
 // component for the home page.
-const Home: NextPage = () => {
+export default function Home() {
 	const { data: sessionData } = useSession();
 
 	return (
@@ -63,13 +62,3 @@ const Home: NextPage = () => {
 		</main>
 	);
 };
-
-const HomePage: NextPage = () => {
-	return (
-		<SessionProvider>
-			<Home />
-		</SessionProvider>
-	);
-};
-
-export default HomePage;
