@@ -1,3 +1,18 @@
+# Purpose
+This website is intended to improve the leveling experience within destiny 2. It provides options to improve your light as well as detailed information regarding bounty prep for new seasons
+
+# Tech Stack
+/**
+ * This project is built using the following technology stack:
+ *
+ * - **Programming Language**: TypeScript
+ * - **Web Framework**: Next.js
+ * - **API**: bungie.net
+ * - **Auth**: auth.js
+ * - **CSS Framework**: TailwindCSS
+ * - **Hosting**: Vercel
+ */
+
 # Starting development
 ## HTTPS
 Due to the bungie API requiring HTTPS in order to authenticate you must run your dev server with
