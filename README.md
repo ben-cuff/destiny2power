@@ -1,14 +1,17 @@
 # Purpose
-This website is intended to improve the leveling experience within destiny 2. It provides options to improve your light as well as detailed information regarding bounty prep for new seasons
+This website is intended to improve the leveling experience within destiny 2. It provides options to improve your light level as well as detailed information regarding bounty prep for new seasons.
 
 # Tech Stack
-This project is built using the following technology stack:
+This project is built using the following tech stack:
 - **Programming Language**: TypeScript
-- **Web Framework**: Next.js
+- **Web Framework**: Next.js + React
 - **API**: bungie.net
-- **Auth**: auth.js
+- **Authentication**: Auth.js
 - **CSS Framework**: TailwindCSS
-- **Hosting**: Vercel
+- **Host**: Vercel
+- **Formatting**: prettier
+
+We are leveraging Vercel's serverless functions in order to control most of the logic of the website.
 
 
 # Starting development
