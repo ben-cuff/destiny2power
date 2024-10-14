@@ -1,4 +1,4 @@
-// these are the props needed to construct the power page
+// These are the props needed to construct the power page
 
 export interface PowerPageProps {
 	lightLevel: number;
