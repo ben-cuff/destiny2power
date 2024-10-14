@@ -6,7 +6,7 @@ type LevelCaps = {
 
 // Power level caps
 export const levelCaps: LevelCaps = {
-	softCap: 1940,
-	powerfulCap: 1990,
-	pinnacleCap: 2000,
+	softCap: 1950,
+	powerfulCap: 2000,
+	pinnacleCap: 2010,
 };
